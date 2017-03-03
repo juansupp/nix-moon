@@ -1,0 +1,25 @@
+section.mort(layout='column')
+  div(layout='column')
+    md-toolbar.md-menu-toolbar.md-whiteframe-1dp.menu(flex='', layout='row')
+      md-icon(md-svg-icon='assets/images/logo.svg' flex='5')
+      div(layout='row', flex='')
+        md-menu-bar
+          md-menu(ng-repeat='menu in $ctrl.structMenu')
+            button(ng-click='$mdOpenMenu()')  {{menu.title}}
+            md-menu-content
+              md-menu-item.md-indent(ng-repeat='itemMenu in menu.items')
+                md-icon(md-font-library='material-icons') {{itemMenu.icon}}
+                md-button(ui-sref='{{itemMenu.state}}' )  {{itemMenu.title}}
+                //- ng-click='$ctrl.serf(itemMenu.state)'
+      .content-right(layout='row', flex='13')
+        md-button.md-icon-button(aria-label='More')
+          i.material-icons settings
+          md-tooltip Configuraci&oacute;n
+        md-button.md-icon-button(ng-click='$ctrl.closeSession($event)', aria-label='More2')
+          i.material-icons power_settings_new
+          md-tooltip Cerrar sesi&oacute;n
+        md-button.md-icon-button(aria-label='More3')
+          i.material-icons face
+          md-tooltip Perfil
+  md-content.mort(layout='column', flex='', layout-padding='')
+    div(ui-view='')

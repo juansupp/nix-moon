@@ -1,0 +1,83 @@
+div(layout='row', layout-align='center center')
+  md-content(layout-padding flex='70')
+    md-card-title
+      md-card-title-text
+        span.md-headline Gestión de servicios
+        p.md-body-1
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
+div(layout='row' layout-align='center center')
+  md-card(flex='70')
+    md-toolbar.filter
+      .md-toolbar-tools
+        //-Tecnicos
+        md-select.md-no-underline(
+          ng-model='$ctrl.model.tecnico'
+          placeholder='Tecnico'
+          ng-change="$ctrl.allTickets($ctrl.model)")
+          md-option(
+            ng-value='tecnico.id_usuario'
+            ng-repeat='tecnico in $ctrl.tecnicos' ) {{tecnico.nombre}}
+        //-Clientes
+        md-select.md-no-underline(
+          ng-model='$ctrl.model.cliente'
+          placeholder='Cliente'
+          ng-change="$ctrl.allTickets($ctrl.model)")
+          md-option(
+            ng-value='cliente.id_cliente'
+            ng-repeat='cliente in $ctrl.clientes') {{cliente.nombre}}
+        //-Servicios
+        md-select.md-no-underline(
+          ng-model='$ctrl.model.servicio'
+          placeholder='Servicio'
+          ng-change="$ctrl.allTickets($ctrl.model)")
+          md-option(
+            ng-value='servicio'
+            ng-repeat='servicio in $ctrl.servicios') {{servicio}}
+        //-Estados
+        md-select.md-no-underline(
+          ng-model='$ctrl.model.estado'
+          placeholder='Estado'
+          ng-change="$ctrl.allTickets($ctrl.model)")
+          md-option(
+            ng-value='estado.value'
+            ng-repeat='estado in $ctrl.estados')
+            md-icon(
+              md-font-library='material-icons'
+              ng-class='estado.value') {{estado.icon}}
+            | &nbsp {{estado.display}}
+        span(flex)
+        div(flex layout='row')
+          //- Desde
+          md-datepicker(
+            ng-model='$ctrl.fecha[0]'
+            md-placeholder='Desde'
+            md-hide-icons='calendar'
+            ng-change='$ctrl.filterDates()'
+            flex)
+          | &nbsp
+          //- Hasta
+          md-datepicker(
+            ng-model='$ctrl.fecha[1]'
+            md-placeholder='Hasta'
+            md-hide-icons='calendar'
+            ng-change='$ctrl.filterDates(true)'
+            flex)
+    md-card-content.out-margin
+      md-list
+        md-list-item.noright.md-3-line(dir-paginate='ticket in $ctrl.tickets | itemsPerPage: 10'  total-items='$ctrl.totalTickets' current-page="$ctrl.current")
+          md-icon(md-font-library="material-icons"  ng-class='ticket.estado') {{ticket.icon}}
+          .md-list-item-text(layout='column')
+            h3
+              strong
+                a( ui-sref="m.documTicket({id:ticket.id_ticket,modo:ticket.estado})") {{ticket.titulo}}
+            h4 {{ticket.cliente_nombre}} &nbsp
+              i.material-icons.arrow keyboard_tab
+              | &nbsp {{ticket.usuario_final}}
+            p Ticket # {{ticket.N_ticket}} a cargo de {{ticket.tecnico_nombre}} y &nbsp
+              | creado por {{ticket.creador}} el {{ticket.fecha}}.
+            md-icon.md-secondary(style='cursor:pointer' md-font-library="material-icons" ui-sref="m.documTicket({id:ticket.id_ticket,modo:'E'})") arrow_upward
+              md-tooltip Escalar
+            //-md-icon.md-secondary(md-font-library="material-icons" ng-click='null') face
+          md-divider
+div(layout='row' flex layout-align='center center')
+  dir-pagination-controls(flex align='center' on-page-change="$ctrl.allTickets($ctrl.model,newPageNumber)")

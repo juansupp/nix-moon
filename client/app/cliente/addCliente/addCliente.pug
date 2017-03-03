@@ -1,0 +1,58 @@
+div(layout='row', layout-align='center center')
+  md-content(layout-padding='' flex='45')
+    md-card-title
+      md-card-title-text
+        span.md-headline Nuevo cliente
+        p.md-body-1
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
+    form(name='clientForm', ng-submit='$ctrl.nuevoCliente(clientForm)')
+      md-autocomplete(required='',md-min-length='0', flex='', md-input-name='cliente', md-search-text='clienteSearch', md-items='item in $ctrl.search(clienteSearch)', md-item-text='item', md-floating-label='Cliente')
+        md-item-template
+          span(md-highlight-text='clienteSearch') {{item}}
+        div(ng-messages='clientForm.cliente.$error')
+          div(ng-message='required') Campo requerido
+      md-input-container.md-block(flex='')
+        label Sede
+        input(type='text', name='sede', ng-model='$ctrl.model.sede', md-maxlength='40', required='')
+        div(ng-messages='clientForm.sede.$error')
+          div(ng-message='required') Campo requerido.
+          div(ng-message='md-maxlength') El campo de sede no puede superar los 40 caracteres.
+      md-input-container.md-block(flex='')
+        label Contacto
+        input(type='text', name='contacto', ng-model='$ctrl.model.contacto', md-maxlength='50', required='')
+        div(ng-messages='clientForm.contacto.$error')
+          div(ng-message='required') Campo requerido.
+          div(ng-message='md-maxlength') El campo de contacto no puede superar los 50 caracteres.
+      md-input-container.md-block(flex='')
+        label Correo
+        input(type='email', name='correo', ng-model='$ctrl.model.correo', md-maxlength='80', required='')
+        div(ng-messages='clientForm.correo.$error')
+          div(ng-message='required') Campo requerido.
+          div(ng-message='md-maxlength') El campo de correo no puede superar los 80 caracteres.
+      div(layout='row')
+        md-input-container.md-block(flex='')
+          label Direcci&oacute;n
+          input(type='text', name='direccion', ng-model='$ctrl.model.direccion', md-maxlength='100', required='')
+          div(ng-messages='clientForm.direccion.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de direccion no puede superar los 100 caracteres.
+        md-input-container.md-block(flex='')
+          label Telefono
+          input(type='text', name='telefono', ng-model='$ctrl.model.telefono', md-maxlength='20', required='')
+          div(ng-messages='clientForm.telefono.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de telefono no puede superar los 20 caracteres.
+      div(layout='row')
+        md-input-container.md-block(flex='')
+          label Contrase&ntilde;a
+          input(type='password', name='contrasena', ng-model='$ctrl.model.contrasena', md-maxlength='20', required='')
+          div(ng-messages='clientForm.contrasena.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de contrase&ntilde;a no puede superar los 30 caracteres.
+        md-input-container.md-block(flex='')
+          label Contrase&ntilde;a
+          input(type='password', name='_contrasena', ng-model='$ctrl.model._contrasena', md-maxlength='20', required='')
+          div(ng-messages='clientForm._contrasena.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de contrase&ntilde;a no puede superar los 30 caracteres.
+      md-button.md-primary(type='submit', ng-disabled='$ctrl.btnDisabled') Registrar

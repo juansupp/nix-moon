@@ -1,0 +1,81 @@
+div(layout='row' layout-padding )
+  div(flex='60' layout='column')
+    //-- Documentacion basica repeticion
+    md-card(ng-repeat='documento in $ctrl.documentos' )
+      md-card-header
+        md-card-avatar
+          img(ng-src='{{$ctrl.image}}')
+        md-card-header-text
+          span.md-title {{documento.persona}}
+          span.md-subhead {{documento.fecha}}  a las {{documento.hora}}
+      md-card-content
+        p
+          i {{documento.texto}}
+    //- Imagenes del ticket
+    md-card
+      md-card-content(ng-repeat='img in $ctrl.imgs')
+        img.responsive(ng-src='{{img.data_image}}')
+
+    //==> Cuadro text box para documentar
+    md-card(ng-if=" $ctrl.modo !== 'C' ")
+      md-card-header
+        md-card-avatar
+          img(ng-src='{{$ctrl.image}}')
+        md-card-header-text
+          span.md-title Sebastian
+          span.md-subhead {{$ctrl.hoy}}
+      md-card-content(layout='column')
+        form(name='documentacionForm' ng-submit='$ctrl.frmSubmit()')
+          //PREGUNTAS DE LA ENCUESTA
+          md-input-container( layout='column' ng-if="$ctrl.modo === 'V' " ng-repeat='pregunta in $ctrl.preguntas')
+            label {{pregunta.placeholder}}
+            md-select.md-no-underline.md-block(
+              required
+              name='pregunta_{{$index+1}}'
+              ng-model='pregunta.model')
+              md-option(
+                ng-value='respuesta.id_respuesta'
+                ng-repeat='respuesta in pregunta.respuestas') {{respuesta.respuesta}}
+          //VISIBLE EN ESCALAR PARA SELECCIONAR TECNICO
+          md-select.md-no-underline.md-block(
+            ng-if="$ctrl.modo === 'E'"
+            name='tecnico'
+            flex
+            ng-model='$ctrl.model.tecnico'
+            placeholder='Selecciona el tecnico a escalar')
+            md-option(
+              ng-value='tecnico.id_usuario'
+              ng-repeat='tecnico in $ctrl.tecnicos') {{tecnico.nombre}}
+          //TEXTO SIEMPRE VISIBLE
+          md-input-container.md-block.write(flex)
+            textarea(name='texto' required ng-model='$ctrl.model.texto' placeholder='Documentación')
+            div(ng-messages='documentacionForm.texto.$error')
+              div(ng-message='required') Campo requerido
+          div(row)
+          div(layout='row' layout-align='end center' flex )
+            //RADIO GROUP PARA DEFINIR SI ES SOLUCION O NOTA, SOLO VISIBLE EN {N} O {P}
+            md-radio-group(name='cierre' ng-model='$ctrl.model.cierre' layout='row' ng-if="$ctrl.modo === 'N' || $ctrl.modo === 'P' ")
+              md-radio-button.md-primary(value='R' flex) Remoto
+              md-radio-button.md-primary(value='S' flex) En sitio
+              md-radio-button.md-primary(value='NN' ) Nota
+            span(flex)
+            //BOTONERA PARA 1.DOCUMENTAR-SOLUCIONAR
+            md-button.md-primary.md-raised(ngf-select='', ng-model='$ctrl.model.images' ngf-accept="'image/*'"  ngf-multiple='true') Adjuntar archivos
+            md-button.md-primary.md-raised(type='submit')
+              div(ng-if="$ctrl.modo === 'N' || $ctrl.modo === 'P' ") Documentar
+              div(ng-if="$ctrl.modo == 'V'") Cerrar ticket
+              div(ng-if=" $ctrl.modo == 'E' ") Escalar ticket
+  features-list(id='$ctrl.id' flex='30' layout='column')
+  //-div(flex='30' layout='column')
+    md-card
+      div(ng-repeat='feature in $ctrl.features')
+        md-card-header
+          md-card-header-text
+            a(href="#" ng-click='$ctrl.openFeatures($index)')
+              span.md-subhead {{feature.title}}
+        md-card-content(ng-if='feature.visible')
+          div(layout='row' ng-repeat='itemFeature in feature.list')
+            div(flex layout='column')
+              b(flex) {{itemFeature.key}}
+            div(flex layout='column')
+              span(flex) {{itemFeature.value}}

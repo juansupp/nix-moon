@@ -1,0 +1,15 @@
+div(flex='30' layout='column')
+    md-card
+      div(ng-repeat='feature in struct')
+        md-card-header
+          md-card-header-text
+            a(href="#" ng-click='openFeatures($index)')
+              span.md-subhead {{feature.title}}
+        md-card-content(ng-show='feature.visible')
+          div(layout='row' ng-repeat='itemFeature in feature.list')
+            div(flex layout='column')
+              b(flex) {{itemFeature.key}}
+            div(flex layout='column')
+              span(flex) {{itemFeature.value}}
+
+

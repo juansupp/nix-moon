@@ -1,0 +1,18 @@
+.top-margin(layout='row', layout-align='center center')
+  md-card(flex='35', flex-sm='100', flex-xs='100', layout='column')
+    md-card-title(align='center')
+      h1(flex='') NIX
+    md-card-content
+      form(name='loginForm', ng-submit='$ctrl.login()')
+        md-input-container.md-block(flex-gt-sm='')
+          label Correo
+          input(name='correo', type='email', ng-model='$ctrl.model.correo', required='')
+          div(ng-messages='loginForm.correo.$error', role='alert')
+            .my-message(ng-message='required') Campo requerido.
+        md-input-container.md-block
+          label Contrase&ntilde;a
+          input(name='pass', type='password', ng-model='$ctrl.model.pass', required='')
+          div(ng-messages='loginForm.pass.$error', role='alert')
+            .my-message(ng-message='required') Campo requerido.
+        md-input-container.md-block(align='center')
+          md-button.md-primary(type='submit', flex='')  Iniciar sesi&oacute;n

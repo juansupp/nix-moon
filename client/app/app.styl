@@ -1,0 +1,75 @@
+$fa-font-path = '../assets/fonts/font-awesome/'
+@import '~font-awesome-stylus/stylus/index'
+$primary-color = #4a4a4a;
+$primary-color-dark =rgb(0, 165, 186);
+$font-color = black
+$fondo-nav = '../assets/images/fondo2.png';
+//#ede8dc
+
+
+
+//
+// App-wide Styles
+//
+
+#loading-bar-spinner .spinner-icon {
+  width: 50px!important;
+  height: 50px!important;
+  border: 10px solid transparent!important;
+  border-top-color: #BBDEFB!important;
+  border-right-color: #64B5F6!important;
+  border-bottom-color:#2196F3 !important;
+  border-left-color: #1976D2!important;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+#loading-bar-spinner {
+    top: 50%!important;
+    left: 50%!important;
+}
+
+#loading-bar .bar
+  background-color white
+  height 5px!important
+
+md-content
+  background-color white
+
+*,body,html,md-toolbar,button
+  //font-family: 'Open Sans', sans-serif;
+  //font-family: 'Josefin Sans', sans-serif;
+  //font-family: 'Arvo', serif
+  font-family: 'Lato', sans-serif;
+  //font-family: 'Volkhov', serif;
+  //font-family: 'Droid Sans', sans-serif;
+button, html, input, select, textarea
+  font-family: 'Lato', sans-serif!important;
+
+.browserupgrade
+  background #ccc
+  color #000
+  margin 0.2em 0
+  padding 0.2em 0
+
+// Responsive: Portrait tablets and up
+@media screen and (min-width: 768px)
+  .container
+    max-width 730px
+
+// Component styles are injected through gulp
+/* inject:styl */
+@import 'activo/addActivo/addActivo';
+@import 'cliente/addCliente/addCliente';
+@import 'cliente/adminCliente/adminCliente';
+@import 'login/login';
+@import 'main/main';
+@import 'main/master/master';
+@import 'main2/main';
+@import 'menu/menu';
+@import 'pagination';
+@import 'ticket/addTicket/addTicket';
+@import 'ticket/adminTicket/adminTicket';
+@import 'ticket/documTicket/documTicket';
+@import 'usuario/addUsuario/addUsuario';
+@import '../components/footer/footer';
+/* endinject */

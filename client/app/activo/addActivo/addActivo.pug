@@ -1,0 +1,157 @@
+div(layout='row', layout-align='center center')
+  md-content(flex='50' layout-padding='')
+    md-card-title
+      md-card-title-text
+        span.md-headline Nuevo activo
+        p.md-body-1
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+          | Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis 
+          | reprehenderit! Provident, error eaque veniam maxime optio in 
+          | dolorem sequi quaerat voluptate quae.
+    form(name='activoForm', ng-submit='$ctrl.nuevoActivo(activoForm)')
+      //-Tipo de activo
+      md-autocomplete(
+        required='', 
+        flex='', 
+        md-min-length='0', 
+        md-input-name='tipoActivo', 
+        md-search-text='$ctrl.tipoActivoSearch', 
+        md-items='item in $ctrl.searchTipoActivo($ctrl.tipoActivoSearch)', 
+        md-item-text='item', 
+        md-floating-label='Activo'
+        )
+        md-item-template
+          span(md-highlight-text='$ctrl.tipoActivoSearch') {{item}}
+        div(ng-messages='activoForm.tipoActivo.$error')
+          div(ng-message='required') Debes seleccionar o registrar un area.
+      //-Serial
+      md-input-container.md-block(flex='')
+        label Serial
+        input(
+          type='text', 
+          name='serial', 
+          ng-model='$ctrl.model.serial', 
+          md-maxlength='40', 
+          required='')
+        div(ng-messages='activoForm.serial.$error')
+          div(ng-message='required') Campo requerido.
+          div(ng-message='md-maxlength') El campo de serial no puede superar los 40 caracteres.
+      div(layout='row')
+        //- marca
+        md-input-container.md-block(flex='')
+          label Marca
+          input(
+            type='text', 
+            name='marca', 
+            ng-model='$ctrl.model.marca', 
+            md-maxlength='40', 
+            required='')
+          div(ng-messages='activoForm.marca.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de marca no puede superar los 40 caracteres.
+        //-modelo
+        md-input-container.md-block(flex='')
+          label Modelo
+          input(
+            type='text', 
+            name='modelo', 
+            ng-model='$ctrl.model.modelo', 
+            md-maxlength='40', 
+            required='')
+          div(ng-messages='activoForm.modelo.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de marca no puede superar los 40 caracteres.
+      div(layout='row')
+        //Seguridad
+        md-input-container.md-block(flex='')
+          label Placa de seguridad
+          input(
+            type='text', 
+            name='seguridad', 
+            ng-model='$ctrl.model.seguridad', 
+            md-maxlength='40', 
+            required='')
+          div(ng-messages='activoForm.seguridad.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de marca no puede superar los 40 caracteres.
+        //Inventario
+        md-input-container.md-block(flex='')
+          label Placa de inventario
+          input(type='text', name='inventario', ng-model='$ctrl.model.inventario', md-maxlength='40', required='')
+          div(ng-messages='activoForm.inventario.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de marca no puede superar los 40 caracteres.
+      //-md-input-container.md-block
+        label Espesificaciones
+        textarea(
+          name='espesificaciones', 
+          ng-model='$ctrl.model.espesificaciones', 
+          required='')
+        div(ng-messages='activoForm.espesificaciones.$error')
+          div(ng-message='required') Campo requerido.
+      div(layout='row')
+        md-autocomplete(
+          required='', 
+          flex='', 
+          md-min-length='0', 
+          md-input-name='cliente', 
+          md-search-text='$ctrl.clienteSearch', 
+          md-items='item in $ctrl.searchCliente($ctrl.clienteSearch)', 
+          md-item-text='item.nombre', 
+          md-floating-label='Cliente', 
+          md-selected-item-change='$ctrl.selectedCliente(item)')
+          md-item-template
+            span(md-highlight-text='$ctrl.clienteSearch') {{item.nombre}}
+          div(ng-messages='activoForm.cliente.$error')
+            div(ng-message='required') Debes seleccionar un cliente.
+        md-autocomplete(
+          ng-disabled='$ctrl.areaDisabled', 
+          required='', 
+          flex='', 
+          md-min-length='0', 
+          md-selected-item-change='$ctrl.selectedArea(item)', 
+          md-input-name='area', 
+          md-search-text='$ctrl.areaSearch', 
+          md-items='item in $ctrl.searchArea($ctrl.areaSearch)', 
+          md-item-text='item.nombre', 
+          md-floating-label='Area')
+          md-item-template
+            span(md-highlight-text='$ctrl.areaSearch') {{item.nombre}}
+          div(ng-messages='activoForm.area.$error')
+            div(ng-message='required') Debes seleccionar o registrar un area.
+      div(layout='row')
+        md-card-title
+          md-card-title-text
+            span.md-headline Especificaciones
+            p.md-body-1
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+              | Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis 
+              | reprehenderit! Provident, error eaque veniam maxime optio in 
+              | dolorem sequi quaerat voluptate quae.
+      div(layout='row' ng-repeat='input in $ctrl.espInputs')
+        //-Especificaciones
+        md-autocomplete(          
+          flex='', 
+          md-selected-item ='input.key'
+          md-min-length='0', 
+          md-search-text='$ctrl.espSearch[$index]', 
+          md-items='item in $ctrl.searchEspecificaciones($ctrl.espSearch[$index])', 
+          md-item-text='item', 
+          md-floating-label='Parte')
+          md-item-template
+            span(md-highlight-text='$ctrl.espSearch') {{item}}
+        //- Valor de la caracteristica
+        md-input-container.md-block(flex='')
+          label Valor
+          input(
+            type='text', 
+            ng-model='input.value', 
+            md-maxlength='40' )
+        md-input-container.md-block(flex='10' ng-show='$last')
+          md-button.md-icon-button.md-primary(
+            aria-label='More3' 
+            ng-click='$ctrl.addEsp()')
+            i.material-icons add
+      md-button.md-primary.raised(
+        type='submit', 
+        ng-disabled='$ctrl.btnDisabled') Registrar

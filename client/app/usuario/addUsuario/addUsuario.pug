@@ -1,0 +1,57 @@
+div(layout='row', layout-align='center center')
+  md-content(layout-padding='' flex='45')
+    md-card-title
+      md-card-title-text
+        span.md-headline Nuevo usuario
+        p.md-body-1
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
+    form(name='userForm', ng-submit='$ctrl.nuevoUsuario(userForm)')
+      div(layout='row')
+        md-input-container.md-block(flex='')
+          label Apellido
+          input(type='text', name='apellido', ng-model='$ctrl.model.apellido', md-maxlength='40', required='')
+          div(ng-messages='userForm.apellido.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de apellido no puede superar los 40 caracteres.
+        md-input-container.md-block(flex='')
+          label Nombre
+          input(type='text', name='nombre', ng-model='$ctrl.model.nombre', md-maxlength='40', required='')
+          div(ng-messages='userForm.nombre.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de apellido no puede superar los 40 caracteres.
+      md-input-container.md-block(flex='')
+        label Correo
+        input(type='email', name='correo', ng-model='$ctrl.model.correo', md-maxlength='50', required='')
+        div(ng-messages='userForm.correo.$error')
+          div(ng-message='required') Campo requerido.
+          div(ng-message='md-maxlength') El campo de apellido no puede superar los 40 caracteres.
+      md-input-container.md-block(flex='')
+        label Telefono
+        input(type='text', name='telefono', ng-model='$ctrl.model.telefono')
+      md-autocomplete(
+        md-min-length='0', 
+        required='',
+        flex='',
+        md-input-name='rol',
+        md-search-text='rolSearch',
+        md-items='item in $ctrl.search(rolSearch)',
+        md-item-text='item',
+        md-floating-label='Rol')
+        md-item-template
+          span(md-highlight-text='rolSearch') {{item}}
+        div(ng-messages='userForm.rol.$error')
+          div(ng-message='required') Debes seleccionar o registrar un area.
+      div(layout='row')
+        md-input-container.md-block(flex='')
+          label Contrase&ntilde;a
+          input(type='password', name='contrasena', ng-model='$ctrl.model.contrasena', md-maxlength='30', required='')
+          div(ng-messages='userForm.contrasena.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de apellido no puede superar los 30 caracteres.
+        md-input-container.md-block(flex='')
+          label Contrase&ntilde;a
+          input(type='password', name='_contrasena', ng-model='$ctrl.model._contrasena', md-maxlength='30', required='')
+          div(ng-messages='userForm._contrasena.$error')
+            div(ng-message='required') Campo requerido.
+            div(ng-message='md-maxlength') El campo de apellido no puede superar los 30 caracteres.
+      md-button.md-primary(type='submit', ng-disabled='$ctrl.btnDisabled') Registrar
