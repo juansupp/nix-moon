@@ -1,22 +1,16 @@
-'use strict'
+'use strict';
 const angular = require('angular');
 const uiRouter = require('angular-ui-router');
 
-import route from './adminCliente.route';
-
-export class AdminClienteComponent {
+import route from './adminUsuario.route';
+export class adminUsuarioComponent {
   /*@ngInject*/
-
-  constructor(moment, $select, $bi, $hummer, $pop, $scope, $cookieStore, $time) {
-    this.$select = $select;
+  constructor($bi,$hummer,$pop) {
     this.$bi = $bi;
     this.$hummer = $hummer;
     this.$pop = $pop;
-    this.$scope = $scope;
-    this.$cookieStore = $cookieStore;
-    this.$time = $time;
-    this.moment = moment;
   }
+
   searchUsuarios(){
     this.$bi.usuario().paginate()
   }
@@ -71,32 +65,34 @@ export class AdminClienteComponent {
      * Dont use
      */
     this.usuarios = [
-        {
-          nombre : 'Juan',
-          apellido : 'Gom',
-          correo : 'correo',
-          id_usuario : 1,
-        },{
-          nombre : 'Juan2',
-          apellido : 'Gom2',
-          correo : 'correo2',
-          id_usuario : 2,
-        },{
-          nombre : 'Juan3',
-          apellido : 'Gom3',
-          correo : 'correo3',
-          id_usuario : 3,
-        }
-      ]
-      /*this.$bi.usuario().all()
-        .then(response => this.usuarios = response.data);*/
-    }
+      {
+        nombre : 'Juan',
+        apellido : 'Gom',
+        correo : 'correo',
+        id_usuario : 1,
+      },{
+        nombre : 'Juan2',
+        apellido : 'Gom2',
+        correo : 'correo2',
+        id_usuario : 2,
+      },{
+        nombre : 'Juan3',
+        apellido : 'Gom3',
+        correo : 'correo3',
+        id_usuario : 3,
+      }
+    ]
+    /*this.$bi.usuario().all()
+      .then(response => this.usuarios = response.data);*/
+  }
 }
 
-export default angular
-  .module('nixApp.adminCliente', [uiRouter])
+export default
+  angular
+  .module('nixApp.adminUsuario', [])
   .config(route)
-  .component('adminCliente', {
-    template: require('./adminCliente.pug'),
-    controller: AdminClienteComponent
-  }).name
+  .component('adminUsuario', {
+    template: require('./adminUsuario.pug'),
+    controller: adminUsuarioComponent
+  })
+  .name;

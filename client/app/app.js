@@ -43,6 +43,7 @@ import addTicket from './ticket/addticket/addTicket.component';
 import adminTicket from './ticket/adminTicket/adminTicket.component';
 import documTicket from './ticket/documTicket/documTicket.component';
 import adminCliente from './cliente/adminCliente/adminCliente.component';
+import adminUsuario from './usuario/adminUsuario/adminUsuario.component';
 //Directives
 import featuresList from '../directives/featuresList/featuresList.directive';
 import activoList from '../directives/activoList/activoList.directive';
@@ -58,7 +59,7 @@ angular.module('nixApp', [
     ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable, //==>EXTERNAL MODUELES
     bifrost, pop, dialog, hummer, select, timer,imagenix, //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
-    adminTicket,documTicket,adminCliente, // ==> COMPONENTS
+    adminTicket,documTicket,adminCliente,adminUsuario, // ==> COMPONENTS
     featuresList,activoList // ==> DIRECTIVES
   ])
   .config(routeConfig)

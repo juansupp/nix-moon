@@ -9,6 +9,7 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
+  app.use('/api/mails', require('./api/mail'));
   //app.use('/api/things', require('./api/thing'));
   app.use('/api/astral', require('./api/astral'));
   // All undefined asset or api routes should return a 404

@@ -124,6 +124,19 @@ export function bifrostService($http, $hummer) {
     entity = _entity;
     return methods;
   }
+  function tipoActivo(_entity='tipo_activo'){
+    entity = _entity;
+    return methods;
+  }
+  function esp(_entity='esp'){
+    entity = _entity;
+    return methods;
+  }
+  function espValor(_entity='esp_valor'){
+    entity = _entity;
+    return methods;
+  }
+
 
   this.encuesta = encuesta;
   this.respuesta = respuesta;

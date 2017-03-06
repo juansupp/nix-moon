@@ -21,9 +21,9 @@ md-card
           td(md-cell='') {{activo.serial}}
           td(md-cell='') {{activo.inventario}}
   //-FILTROS
-  md-container(layout='column' layout-padding ) 
+  md-container(layout='column' layout-padding )
     div(layout='row')
-      //-Busqueda general 
+      //-Busqueda general
       md-input-container.md-block(flex='20')
         label Buscar...
         input(
@@ -31,18 +31,7 @@ md-card
           ng-model='model.buscar'
           name='contacto'
         )
-      //-CLIENTE 
-        md-autocomplete(
-          flex='', 
-          md-min-length='0', 
-          md-input-name='cliente', 
-          md-search-text='clienteSearch', 
-          md-items='item in searchCliente(clienteSearch)', 
-          md-item-text='item.nombre', 
-          md-floating-label='Cliente', 
-          md-selected-item-change='selectedCliente(item)')
-          md-item-template
-            span(md-highlight-text='clienteSearch') {{item.nombre}}
+      //-CLIENTE
       md-input-container.md-block(flex)
           label Cliente
           md-select(ng-model='model.cliente' ng-change='selectedCliente()')
@@ -51,23 +40,11 @@ md-card
               ng-value='cliente.id_cliente'
             )  {{cliente.nombre}}
       //--AREA
-        md-autocomplete(
-          ng-disabled='areaDisabled', 
-          flex='', 
-          md-min-length='0', 
-          md-selected-item-change='selectedArea(item)', 
-          md-input-name='area', 
-          md-search-text='areaSearch', 
-          md-items='item in searchArea(areaSearch)', 
-          md-item-text='item.nombre', 
-          md-floating-label='Area')
-          md-item-template
-            span(md-highlight-text='areaSearch') {{item.nombre}}
       md-input-container.md-block(flex)
           label Area
           md-select(
-          ng-disabled='areaDisabled' 
-          ng-model='model.area' 
+          ng-disabled='areaDisabled'
+          ng-model='model.area'
           ng-change='selectedArea()')
             md-option(
               ng-repeat='area in areaList'

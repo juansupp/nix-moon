@@ -13,7 +13,7 @@ export default class ructor {
     let config = {
       user: 'sa',
       password: 'A*96NIXZ1996',
-      server: '170.117.20.7', // You can use 'localhost\\instance' to connect to named instance
+      server: '186.29.68.122', // You can use 'localhost\\instance' to connect to named instance
       database: 'ivory_elph' // IVORY PRODUCTION
     }
     return new Promise(function(resolve, reject) {
@@ -49,13 +49,13 @@ export default class ructor {
   paginate (entity,where,val,page,numPerPage) {
     //select count(id_ticket)  from ticket
     //select * from ticket order by id_ticket offset 0 rows fetch next 10 Rows Only
-    let 
+    let
       total = (page * numPerPage),
-      sentence = 
-          `select ${val} from ${entity} where ${where} 
+      sentence =
+          `select ${val} from ${entity} where ${where}
           order by id_${entity} desc offset ${total} rows fetch next ${numPerPage} Rows Only`;
     console.log(sentence);
-    return this.con(sentence,true);  
+    return this.con(sentence,true);
   }
 
   insert(entity, val) {
