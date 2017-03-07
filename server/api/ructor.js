@@ -10,26 +10,43 @@ export default class ructor {
 
   }
   con(sentence, open) {
+
     let config = {
       user: 'sa',
       password: 'A*96NIXZ1996',
-      server: '186.29.68.122', // You can use 'localhost\\instance' to connect to named instance
-      database: 'ivory_elph' // IVORY PRODUCTION
+      server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
+      database: 'mastodon', // IVORY PRODUCTION
+      port: 1433
     }
+
+
+
+/*"username": "sa",
+"password": "sa@123",
+"database": "test",
+"host": "localhost",
+"dialect": "mssql",
+"port": 1433,
+"dialectOptions": {
+"instanceName": "SQLEXPRESS"
+}*/
+
+
     return new Promise(function(resolve, reject) {
-      var connection = new sql.Connection(config, function(err) {
-        var request = new sql.Request(connection);
-        request.query(sentence, function(err, recordset) {
-          connection.close();
-          if (open)
-            err ? reject({
-              err: err
-            }) : resolve({
-              recordset: recordset
-            });
-          else
-            err ? reject(err) : resolve(err);
-        });
+      let connection = new sql.Connection(config, err => {
+
+        if (err) return;
+          let request = new sql.Request(connection);
+          request.query(sentence, (_err, recordset) => {
+            console.log(_err)
+            connection.close();
+            if (open)
+              err ? reject({err: err}) : resolve({recordset: recordset});
+            else
+              err ? reject(err) : resolve(err);
+          });
+
+
       });
     });
   }

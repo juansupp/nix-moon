@@ -5,44 +5,6 @@ const uiRouter = require('angular-ui-route');
 
 import route from './configActivo.route'
 
-/*
-
-SQL
-
-create table tipo_activo (
-  id_tipo_activo int primary key identity,
-  nombre_tipo_activo varchar(150),
-  descripcion varchar(max)
-)
-
-go
-
-create table esp (
-  id_esp int primary key identity,
-  _esp varchar(100),
-  fk_id_tipo_activo int foreign key references tipo_activo (id_tipo_activo)
-)
-
-go
-
-create  table esp_valor (
-  id_esp_valor int primary key identity,
-  _esp_valor varchar(200),
-  fk_id_esp int foreign key references esp (id_esp)
-)
-
-
-------.VIEW .___ GRID DE VISTA
-
-create view full_tipo_activo
-as
-select * from tipo_activo
-inner  join esp on esp.fk_id_tipo_activo = tipo_activo.id_tipo_activo
-inner join esp_valor on esp_valor.fk_id_esp = esp.id_esp
-
-
- */
-
 export class configActivoComponent {
   /*@ngInject*/
   constructor($bi) {
