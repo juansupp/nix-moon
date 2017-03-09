@@ -44,6 +44,10 @@ exports = module.exports = [{
     state: 'm.addActivo',
     title: 'Agregar'
   },{
+    icon: 'add',
+    state: 'm.configActivo',
+    title: 'Configurar tipados'
+  },{
     icon: 'assignment',
     state: 'm.adminInventario',
     title: 'Administrar'

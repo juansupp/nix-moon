@@ -15,7 +15,7 @@ export default class ructor {
       user: 'sa',
       password: 'A*96NIXZ1996',
       server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
-      database: 'mastodon', // IVORY PRODUCTION
+      database: 'mastodonx', // IVORY PRODUCTION
       port: 1433
     }
 

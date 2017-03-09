@@ -14,23 +14,13 @@ export class AddActivoComponent {
   }
 
   //Autocomplete inputs
-  searchEspecificaciones(query) {
-    return this.$select.search(query, this.espList);
-  }
-  searchTipoActivo(query) {
-    return this.$select.search(query, this.activosList);
-  }
   searchCliente(query) {
     return this.$select.searchFull(query, this.clientesList, 'nombre');
   }
   searchArea(query) {
     return this.$select.searchFull(query, this.areaList, 'nombre');
   }
-  selectedEsp (selected) {
-    if(selected){
 
-    }
-  }
   selectedCliente(selected) {
     if(selected) {
       this.areaDisabled = false;
@@ -50,32 +40,117 @@ export class AddActivoComponent {
     if (selected) this.areaSeleccionada = selected;
   }
 
-  nuevoActivo(frm) {
-      this.btnDisabled = true;
-      let
-      //Convierte el formulario en un modelo
-        model = this.$hummer.castFormToModel(frm),
-        repetition = this.$hummer.evaluateRepetition(
-          this.areaList,
-          model.area,
-          'nombre'
-        );
-      /*
-        Si se repite el area dentro de la lista quiere decir que ya existe y
-        por lo tanto no es necesario registrar una nueva area
-      */
-      if (!repetition) { //No se repite, se inserta
-        this.$bi.area().insert([model.area, this.clienteSeleccionado])
-          .then(response => {
-            model.area = response.data[0].id_area;
-            this.ingresarActivo(model);
+  loadCaracteristicas(idTipo) {
+    return this.$bi
+      .car()
+      .all({fk_id_tipo_activo : idTipo});
+  }
+
+  loadCaracteristicaValores(idCar) {
+    return this.$bi
+      .carValor()
+      .all({fk_id_caracteristica : idCar});
+  }
+
+
+
+  selectTipoActivo(){
+    //Por defecto se resetea la vista de las caracteristicas
+    this.showCar = false;
+    //Se resetean las caracteristicas
+    this.caracteristicas = new Array();
+    //Cargamos las caracteristicas del tipo de activo seleccionado
+    this.loadCaracteristicas(this.model.tipoActivo)
+      .then(response => {
+        //En caso que hayan caracteristicas
+        if(response.data.length > 0){
+          //Se muestra el campo de las caracteristicas
+          this.showCar = true;
+          //Variables de acorte proximo
+          let
+            caracteristicas  = new Array(),
+            valores = new Array();
+          //Acorte de variable
+          caracteristicas = response.data;
+          //Por cada caracteristica del tipo  de activo
+          caracteristicas.forEach(c => {
+            // c = caracteristica actual
+            //Se cargan los valores de la caracteristica
+            this.loadCaracteristicaValores(c.id_caracteristica)
+              .then(responseV => {
+                //Se acorta variable
+                valores = responseV.data;
+                //Se crea variable temporal obj para agregar al array
+                let obj = {
+                  selected : '', // => hace referencia al ngModel
+                  values : valores, //=> Se guardan los valores de la caracteristica
+                  _caracteristica : c._caracteristica // Referencia para el placeholder
+                }
+                //Finalmente se agregan la caracteristica
+                this.caracteristicas.push(obj)
+              });
           });
-      } else { //Se repite
-        model.area = this.areaSeleccionada.id_area;
-        this.ingresarActivo(model);
-      }
+        }
+      });
+  }
+
+
+ /*
+create table caracteristica_activo (
+  id_caracteristica_activo int primary key identity,
+  fk_id_caracteristica_valor int foreign key references caracteristica_valor(id_caracteristica_valor),
+  fk_id_activo int foreign key references activo (id_activo)
+)
+*/
+  validateCarValues(){
+    this.caracteristicas.forEach(c => {
+      if(!c.selected) return false;
+    })
+    return true;
+  }
+
+  insertCarActivo(arrVal){
+    return this.$bi
+      .carActivo()
+      .insert(arrVal)
+  }
+
+  insertArea(){
+
+    return this.$bi.area()
+      .insert(
+        [
+          this.model.area,
+          this.model.cliente
+        ]);
+  }
+
+  nuevoActivo(frm) {
+    if(this.validateCarValues ){
+
     }
-    //Metodo privado
+
+
+    this.btnDisabled = true;
+    //Convierte el formulario en un modelo
+    let model = this.$hummer.castFormToModel(frm);
+    /*  repetition = this.$hummer.evaluateRepetition(
+        this.areaList,
+        model.area,
+        'nombre'
+      );*/
+
+    if (!this.model.area) {
+      this.insertArea()
+        .then(response => {
+          model.area = response.data[0].id_area;
+          this.ingresarActivo(model);
+        });
+    } else {
+      this.ingresarActivo(model);
+    }
+  }
+
   ingresarActivo(model) {
     let arrVal = [
       model.serial,
@@ -83,65 +158,32 @@ export class AddActivoComponent {
       model.modelo,
       model.inventario,
       model.seguridad,
-      model.espesificaciones,
-      model.tipoActivo,
+      //model.espesificaciones,
+      //model.tipoActivo,
       model.area
     ];
 
     this.$bi.activo().insert(arrVal)
       .then(response => {
-        //En  caso que se hayan registrado especificaciones 
-        if(this.espSearch[0].length > 0){
-          //Se resetea el modelo 
-          this.model = new Object();
-          //Crea un array para guardar las promesas
-          let promiseInputs = new Array();
-          //Loop para recorrer cada una de las especificaciones
-          //this.espInputs.forEach(input => {
-          for (let  i = 0; i < this.espInputs.length ; i++) {
-            //valida que value contenga texto
-            if(this.espInputs[i].value.length > 0){
-              //Modifica la variable inicial REUSE VARIABLE BOILERPLATE
-              arrVal = [
-                this.espSearch[i],
-                this.espInputs[i].value,
-                response.data[0].id_activo
-              ],
-              //Agrega una promesa (especificacion)  al array
-              promiseInputs.push(this.$bi.especificacion().insert(arrVal));
-            }
-          }
-            
-          //});
-          //Acciona todas las promesas
-          this.$q.all(promiseInputs)
-            .then(()=>this.$pop.show('Activo registrado satisfactoriamente'));
-        }else {
-          this.$pop.show('Activo registrado satisfactoriamente')
-        }
+        this.$pop.show('Activo registrado Satisfactoriamente')
+        this.model = new Object();
       });
   }
 
-  addEsp () {
-    this.espInputs.push({key : '',value :''})
-  }
 
   $onInit() {
-    //Instancia improvisada de los inputs para especificaciones
-    this.espInputs = [{key : '',value :''}]
+    //Se instancia el repetidor de caracteristicas
+    this.caracteristicas = new Array();
+    //Por defecto no se muestran las caracteristicas hasta seleccionar un tipo de activo
+    this.showCar = false;
+    //Modelo del controlador
+    this.model  = new Object();
     //Carga el select para tipo de activo
-    this.$bi.activo().find(['distinct tipo_activo'])
-      .then(response =>
-        this.activosList = this.$hummer.objectToArray(response.data)
-      );
+    this.$bi.tipoActivo().all()
+      .then(response => this.tipoActivoList = response.data);
     //Carga el select para cliente desde una vista
     this.$bi.cliente('cliente_completo').all()
       .then(response => this.clientesList = response.data);
-    //Carga las espesificaiones registradas
-    this.$bi.especificacion().find(['distinct _key'])
-      .then(response =>
-        this.espList = this.$hummer.objectToArray(response.data)
-      );
     //Se activa el botón de submit por defecto
     this.btnDisabled = false;
     //Se instancia el select para Area

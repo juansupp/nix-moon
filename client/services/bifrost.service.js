@@ -128,16 +128,18 @@ export function bifrostService($http, $hummer) {
     entity = _entity;
     return methods;
   }
-  function esp(_entity='esp'){
+  function car(_entity='caracteristica'){
     entity = _entity;
     return methods;
   }
-  function espValor(_entity='esp_valor'){
+  function carValor(_entity='caracteristica_valor'){
     entity = _entity;
     return methods;
   }
 
-
+  this.carValor = carValor;
+  this.car = car;
+  this.tipoActivo = tipoActivo
   this.encuesta = encuesta;
   this.respuesta = respuesta;
   this.pregunta = pregunta;
@@ -148,7 +150,6 @@ export function bifrostService($http, $hummer) {
   this.usuario = usuario;
   this.cliente = cliente;
   this.activo = activo;
-  this.especificacion = especificacion;
 }
 
 export default angular.module('nixApp.bifrost', [])

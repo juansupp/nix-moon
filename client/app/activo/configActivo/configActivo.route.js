@@ -2,7 +2,7 @@
 
 export default function($stateProvider) {
   'ngInject';
-  $stateProvider.state('configActivo', {
+  $stateProvider.state('m.configActivo', {
     url: '/configActivo',
     template: '<config-activo></config-activo>'
   });

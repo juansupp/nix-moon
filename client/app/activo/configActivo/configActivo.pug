@@ -1,6 +1,42 @@
-p   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+div(layout='row' layout-align='center center')
+    md-content(flex='50' layout-padding)
+        //- TITLE
+        md-card-title
+          md-card-title-text
+            span.md-headline Nuevo tipo de activo
+            p.md-body-1
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis
+              | reprehenderit! Provident, error eaque veniam maxime optio in
+              | dolorem sequi quaerat voluptate quae.
+        md-content
+            md-input-container.md-block(flex='')
+                label Tipo de activo
+                input(type='text' ng-model='$ctrl.model.tipo')
+            md-input-container.md-block(flex='')
+                label Descripción
+                textarea(type='text' ng-model='$ctrl.model.descripcion')
+            div(ng-repeat='caracteristica in $ctrl.model.caracteristicas')
+                md-card()
+                    md-card-title
+                      md-card-title-text
+                        span.md-headline Caracteristica # {{$index+1}}
+                    md-card-content(layout='column')
+                        md-input-container.md-block(flex)
+                            label Caracteristica
+                            input(type='text' ng-model='caracteristica.name')
+                        md-chips(ng-model='caracteristica.values' placeholder='Valores')
+                            md-chip-template
+                                strong {{$chip}}
+                div(layout='row' ng-if='$last' layout-align='space-between center')
+                    md-input-container.md-block( )
+                      md-button.md-icon-button.md-primary(
+                        aria-label='More3'
+                        ng-click='$ctrl.addCaracteristica()')
+                        i.material-icons add
+                        md-tooltip Agregar caracteristica
+                    md-button.md-primary.md-raised(
+                    ng-click='$ctrl.addTipo()'
+                        type='button',
+                        ng-disabled='$ctrl.btnDisabled') Registrar
+
