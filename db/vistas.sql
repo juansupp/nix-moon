@@ -1,15 +1,15 @@
 
 go
-use ivory_elph
+use mastodonx
 go 
 
-create view cliente_completo
+alter view cliente_completo
 as
 select distinct nombre_empresa + ' ' +  cliente.nombre_sede nombre, id_cliente from cliente
 
 go
 
-create view tecnicos
+alter view tecnicos
 as
 select 
 	usuario.apellido + ' ' + usuario.nombre nombre,
@@ -20,7 +20,7 @@ from usuario where rol like '%tec%'
 
 go
 
-create view lastTicket 
+alter view lastTicket 
 as
 select top(1) N_Ticket from ticket order by N_Ticket desc
 
@@ -41,7 +41,7 @@ select
 	tecnico.id_usuario tecnico,
 	
 	ticket.usuario_final,
-	ticket.servicio + ' de ' +  activo.tipo_activo titulo,
+	ticket.servicio + ' de ' +  _tipo_activo titulo,
 	creador.apellido + ' ' + creador.nombre creador,
 	documentacion.fecha,
 	documentacion.hora,
@@ -55,6 +55,7 @@ inner join documentacion on documentacion.fk_id_ticket = ticket.id_ticket
 inner join activo on activo.id_activo =  ticket.fk_id_activo
 inner join area on area.id_area = activo.fk_id_area
 inner join cliente on cliente.id_cliente = area.fk_id_cliente
+inner join tipo_activo on tipo_activo.id_tipo_activo = activo.fk_id_tipo_activo
 -- ii tipo
 
 --select * from full_ticket where fecha <= '2017-01-31' and fecha >= '2017-01-25'
@@ -63,7 +64,7 @@ inner join cliente on cliente.id_cliente = area.fk_id_cliente
 
  go 
 
- create view full_pregunta
+ alter view full_pregunta
  as
  select * from respuesta 
 	inner join pregunta on pregunta.id_pregunta =respuesta.fk_id_pregunta
@@ -71,7 +72,7 @@ inner join cliente on cliente.id_cliente = area.fk_id_cliente
 go
 
 
-create view full_images 
+alter view full_images 
 as 
 select ticket.id_ticket,imagen.data_image, documentacion.id_documentacion from ticket
 inner join documentacion on documentacion.fk_id_ticket = ticket.id_ticket
@@ -98,7 +99,7 @@ select  id_ticket,
 		telefono,
 		nombre_contacto contacto, 
 		correo_contacto,
-		activo.tipo_activo activo,
+		_tipo_activo activo,
 		serial,
 		marca,
 		modelo,
@@ -111,17 +112,19 @@ inner join documentacion on documentacion.fk_id_ticket = ticket.id_ticket
 inner join activo on activo.id_activo =  ticket.fk_id_activo
 inner join area on area.id_area = activo.fk_id_area
 inner join cliente on cliente.id_cliente = area.fk_id_cliente
+inner join tipo_activo on tipo_activo.id_tipo_activo = activo.fk_id_tipo_activo
 
 go
 
-create view full_activo 
+alter view full_activo 
 as
 select * from activo 
 inner join area on area.id_area = activo.fk_id_area
 inner join cliente on cliente.id_cliente = area.fk_id_cliente
+inner join tipo_activo on tipo_activo.id_tipo_activo = activo.fk_id_tipo_activo
 
-
-select * from ticket
+go
+--select * from ticket
 
 /*select * from ticket
 select count(*) from ticket

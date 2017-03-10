@@ -39,16 +39,19 @@ export class AddTicketComponent {
 
   nuevoTicket(ev,frm) {
     console.log(this.model.contacto)
-    if(this.activoSeleccionado.length === 0) 
+    if(this.activoSeleccionado.length === 0)
       this.$pop.show('Debes seleccionar un activo para finalizar.');
     else {
       //Busca en la base de datos el ultimo activo ingresado para hacer la cuenta progresiva de N_Ticket
-      this.$bi.ticket('lastTicket').find(['N_Ticket']).then(response => {
+      this.$bi
+      .ticket('lastTicket')
+      .find(['N_Ticket'])
+      .then(response => {
         let
           //Se acorta la variable
-          data = response.data[0],
+          data = response.data,
           //Declaración del ultimo numero de ticket
-          nTicket = data.N_Ticket? data.N_Ticket + 1: '0001',
+          nTicket = data.length > 0 ? data[0].N_Ticket + 1: '0001',
           //Titlo del cuadro de confirmacion
           titulo = `Ticket Nº${nTicket}`,
           //Texto dentro del dialogo de confirmacion
@@ -74,10 +77,10 @@ export class AddTicketComponent {
               model.origen,
               model.servicio,
               this.model.contacto,
+              "X",
               model.tecnico,
               idCreador,
-              this.activoSeleccionado[0].id_activo,
-              "X" // ==> Cierre X quiere decir que aun no se ha cerrado
+              this.activoSeleccionado[0].id_activo // ==> Cierre X quiere decir que aun no se ha cerrado
             ],
             //Se crea el arreglo para insertar documentacion
             arrValDocum = [hoy, ahora, model.descripcion, "II", nombreCreador];
@@ -112,9 +115,15 @@ export class AddTicketComponent {
 
   $onInit() {
     //Cara select para origen
-    this.$bi.ticket().find(['distinct origen']).then(response => this.origenList = this.$hummer.objectToArray(response.data));
+    this.$bi
+      .ticket()
+      .find(['distinct origen'])
+      .then(response => this.origenList = this.$hummer.objectToArray(response.data));
     //Carga select para servicio
-    this.$bi.ticket().find(['distinct servicio']).then(response => this.servicioList = this.$hummer.objectToArray(response.data));
+    this.$bi
+      .ticket()
+      .find(['distinct servicio'])
+      .then(response => this.servicioList = this.$hummer.objectToArray(response.data));
     this.$bi.activo().all().then(response => this.activoList = response.data);
     //
     this.$bi.usuario('tecnicos').all().then(response => this.tecnicoList = response.data);

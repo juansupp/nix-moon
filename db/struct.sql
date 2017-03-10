@@ -1,10 +1,10 @@
 /*
 	NEW DATABASE IVORY_ELPH
-*/
 
-create database mastodon
+
+create database mastodonx
 go
-use mastodon
+use mastodonx
 go 
 create table usuario (
 	id_usuario int primary key identity(1,1),
@@ -42,10 +42,11 @@ go
 
 --!! ALTER TABLE DROP especificaciones
 --se remove tipo de activo 
-
+--alter table tipo_activo add descripcion varchar(max)
 create table tipo_activo (
 	id_tipo_activo int primary key identity,
-	_tipo_activo varchar(200)
+	_tipo_activo varchar(200),
+	descripcion varchar(max)
 )
 
 go
@@ -59,6 +60,7 @@ create table caracteristica (
 
 go
 
+--alter table activo drop column especificaciones
 create table activo(
 	id_activo int primary key identity(1,1),
 	serial varchar(50),
@@ -66,7 +68,6 @@ create table activo(
 	modelo varchar(50),
 	inventario varchar(20),
 	seguridad varchar(20),
-	especificaciones varchar(1000),
 	fk_id_tipo_activo int foreign key references tipo_activo (id_tipo_activo) ,
 	fk_id_area int foreign key references area (id_area) 
 
@@ -77,7 +78,14 @@ go
 create table caracteristica_valor (
 	id_caracteristica_valor int primary key identity,
 	_valor varchar(100),
-	fk_id_caracteristica int foreign key references caracteristica (id_caracteristica),
+	fk_id_caracteristica int foreign key references caracteristica (id_caracteristica)
+)
+
+go
+
+create table caracteristica_activo (
+	id_caracteristica_activo int primary key identity,
+	fk_id_caracteristica_valor int foreign key references caracteristica_valor(id_caracteristica_valor),
 	fk_id_activo int foreign key references activo (id_activo)
 )
 
@@ -129,7 +137,7 @@ create table imagen (
 ) 
 
 --INSERTS
---insert into usuario values ('Pandora','Juan',487596,'juan@juan.com','juan123','master')
+insert into usuario values ('Pandora','Juan',487596,'juan@juan.com','juan123','master')
 
 go
 
@@ -157,7 +165,7 @@ create table encuesta (
 
 --DEFINICION DE ESPECIFICACIONES
 
-
+/*
 insert into pregunta values('¿El servicio se atendió dentro de los tiempos establecidos?',1)
 insert into pregunta values('¿Qué tan buena fue la atención prestada?',1)
 insert into pregunta values('¿Se resolvió satisfactoriamente el servicio?',1)
@@ -223,3 +231,5 @@ create table sub_version(
 go 
 
 create table semaforo ( cantidad tinyint )
+
+*/

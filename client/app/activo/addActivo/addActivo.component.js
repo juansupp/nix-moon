@@ -15,20 +15,24 @@ export class AddActivoComponent {
 
   //Autocomplete inputs
   searchCliente(query) {
+    console.log(this.clientesList)
     return this.$select.searchFull(query, this.clientesList, 'nombre');
   }
   searchArea(query) {
     return this.$select.searchFull(query, this.areaList, 'nombre');
   }
+  searchMarca(query) {
+    console.log(this.marcaList)
+    return this.$select.search(query, this.marcaList);
+  }
 
   selectedCliente(selected) {
     if(selected) {
       this.areaDisabled = false;
-      this.clienteSeleccionado = selected.id_cliente;
       let
         arrVal = ['distinct nombre', 'id_area'],
         whereArr = {
-          fk_id_cliente: this.clienteSeleccionado
+          fk_id_cliente: this.model.cliente.id_cliente
         };
       this.$bi.area().find(arrVal, whereArr)
         .then(response => this.areaList = response.data);
@@ -37,7 +41,7 @@ export class AddActivoComponent {
   }
 
   selectedArea(selected) {
-    if (selected) this.areaSeleccionada = selected;
+    if (selected) this.model.area = selected;
   }
 
   loadCaracteristicas(idTipo) {
@@ -62,6 +66,7 @@ export class AddActivoComponent {
     //Cargamos las caracteristicas del tipo de activo seleccionado
     this.loadCaracteristicas(this.model.tipoActivo)
       .then(response => {
+
         //En caso que hayan caracteristicas
         if(response.data.length > 0){
           //Se muestra el campo de las caracteristicas
@@ -103,10 +108,11 @@ create table caracteristica_activo (
 )
 */
   validateCarValues(){
+    let full = true;
     this.caracteristicas.forEach(c => {
-      if(!c.selected) return false;
+      if(!c.selected) full = false;
     })
-    return true;
+    return full
   }
 
   insertCarActivo(arrVal){
@@ -116,38 +122,42 @@ create table caracteristica_activo (
   }
 
   insertArea(){
-
+    console.log(this.model.cliente)
     return this.$bi.area()
       .insert(
         [
-          this.model.area,
-          this.model.cliente
+          this.areaSearch,
+          this.model.cliente.id_cliente
         ]);
   }
 
   nuevoActivo(frm) {
-    if(this.validateCarValues ){
+    if(this.validateCarValues()){
 
-    }
+      this.btnDisabled = true;
+
+      let
+        model = this.$hummer.castFormToModel(frm),
+        repetition = this.$hummer.evaluateRepetition(
+          this.areaList,
+          model.area,
+          'nombre'
+        );
 
 
-    this.btnDisabled = true;
-    //Convierte el formulario en un modelo
-    let model = this.$hummer.castFormToModel(frm);
-    /*  repetition = this.$hummer.evaluateRepetition(
-        this.areaList,
-        model.area,
-        'nombre'
-      );*/
-
-    if (!this.model.area) {
-      this.insertArea()
-        .then(response => {
-          model.area = response.data[0].id_area;
-          this.ingresarActivo(model);
-        });
-    } else {
-      this.ingresarActivo(model);
+        //En caso que no se repita
+      if (!repetition) {
+        //Inserta area
+        this.insertArea()
+          .then(response => {
+            this.model.area = response.data[0];
+            this.ingresarActivo(model);
+          });
+      } else {
+        this.ingresarActivo(model);
+      }
+    }else {
+      this.$pop.show('Debes seleccionar las especificaciones del activo');
     }
   }
 
@@ -158,13 +168,22 @@ create table caracteristica_activo (
       model.modelo,
       model.inventario,
       model.seguridad,
-      //model.espesificaciones,
-      //model.tipoActivo,
-      model.area
+      this.model.tipoActivo,
+      this.model.area.id_area
     ];
-
-    this.$bi.activo().insert(arrVal)
+    this.$bi
+      .activo()
+      .insert(arrVal)
       .then(response => {
+        console.log(response.data)
+        //Acortamos variable
+        let idActivo = response.data[0].id_activo;
+        //Se insertan las caracteristicas en caso de tener
+        this.caracteristicas.forEach(c => {
+          this.$bi
+          .carActivo()
+          .insert([c.selected,idActivo])
+        });
         this.$pop.show('Activo registrado Satisfactoriamente')
         this.model = new Object();
       });
@@ -184,14 +203,15 @@ create table caracteristica_activo (
     //Carga el select para cliente desde una vista
     this.$bi.cliente('cliente_completo').all()
       .then(response => this.clientesList = response.data);
+    //Carga el select para la marca
+    this.$bi.activo().find(['distinct marca'])
+      .then(response => this.marcaList = this.$hummer.objectToArray(response.data));
     //Se activa el botón de submit por defecto
     this.btnDisabled = false;
     //Se instancia el select para Area
     this.areaList = new Array();
     //Se desactiva por defecto el area para cargarlo con cliente
     this.areaDisabled = true;
-    //Objeto de cliente sleccionado
-    this.clienteSeleccionado = new Object();
     //Objeto de area seleccionada
     this.areaSeleccionada = new Object();
   }

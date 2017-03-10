@@ -136,7 +136,13 @@ export function bifrostService($http, $hummer) {
     entity = _entity;
     return methods;
   }
+  function carActivo(_entity='caracteristica_activo'){
+    entity =_entity;
+    return methods;
+  }
 
+
+  this.carActivo = carActivo;
   this.carValor = carValor;
   this.car = car;
   this.tipoActivo = tipoActivo

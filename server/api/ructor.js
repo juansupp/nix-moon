@@ -79,7 +79,7 @@ export default class ructor {
     let
       sentence =
       "insert into " + entity + " Output inserted.id_"+ entity +" values (" + val + ")"
-    //console.dir(sentence);
+    console.dir(sentence);
     return this.con(sentence, true);
   }
 

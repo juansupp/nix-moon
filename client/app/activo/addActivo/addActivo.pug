@@ -34,17 +34,20 @@ div(layout='row', layout-align='center center')
           div(ng-message='md-maxlength') El campo de serial no puede superar los 40 caracteres.
       div(layout='row')
         //- marca
-        md-input-container.md-block(flex='')
-          label Marca
-          input(
-            type='text',
-            name='marca',
-            ng-model='$ctrl.model.marca',
-            md-maxlength='40',
-            required='')
+        md-autocomplete(
+          required='',
+          flex='',
+          md-min-length='0',
+          md-selected-item='$ctrl.model.marca'
+          md-input-name='marca',
+          md-search-text='$ctrl.marcaSearch',
+          md-items='item in $ctrl.searchMarca($ctrl.marcaSearch)',
+          md-item-text='item',
+          md-floating-label='Marca')
+          md-item-template
+            span(md-highlight-text='$ctrl.marcaSearch') {{item}}
           div(ng-messages='activoForm.marca.$error')
-            div(ng-message='required') Campo requerido.
-            div(ng-message='md-maxlength') El campo de marca no puede superar los 40 caracteres.
+            div(ng-message='required') Debes seleccionar o registrar una marca.
         //-modelo
         md-input-container.md-block(flex='')
           label Modelo
@@ -83,7 +86,7 @@ div(layout='row', layout-align='center center')
           flex='',
           md-min-length='0',
           md-input-name='cliente',
-          md-selected-item='$ctrl.model.cliente.id_cliente'
+          md-selected-item='$ctrl.model.cliente'
           md-search-text='$ctrl.clienteSearch',
           md-items='item in $ctrl.searchCliente($ctrl.clienteSearch)',
           md-item-text='item.nombre',
@@ -98,7 +101,7 @@ div(layout='row', layout-align='center center')
           required='',
           flex='',
           md-min-length='0',
-          md-selected-item='$ctrl.model.area.id_area'
+          md-selected-item='$ctrl.model.area'
           md-selected-item-change='$ctrl.selectedArea(item)',
           md-input-name='area',
           md-search-text='$ctrl.areaSearch',
