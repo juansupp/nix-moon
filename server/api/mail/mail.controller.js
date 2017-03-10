@@ -7,7 +7,7 @@ export function index(req, res) {
   res.json([]);
 }
 
-
+//BOOMER
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
     service: 'gmail',
