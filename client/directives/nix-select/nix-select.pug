@@ -1,0 +1,8 @@
+md-select(
+    ng-model='ngModel'
+    placeholder='{{placeholder}}'
+    ng-change='ngChange')
+    md-option(
+        value='nxOption.value'
+        ng-repeat='nxOption in nxOptions'
+        ) {{nxOption.display}}

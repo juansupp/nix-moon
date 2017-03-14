@@ -45,9 +45,12 @@ import documTicket from './ticket/documTicket/documTicket.component';
 import adminCliente from './cliente/adminCliente/adminCliente.component';
 import adminUsuario from './usuario/adminUsuario/adminUsuario.component';
 import configActivo from './activo/configActivo/configActivo.component';
+import pruebas from './pruebas/pruebas.component'
 //Directives
 import featuresList from '../directives/featuresList/featuresList.directive';
 import activoList from '../directives/activoList/activoList.directive';
+import nixText from '../directives/nix-text/nix-text.directive';
+import nixSelect from '../directives/nix-select/nix-select.directive'
 //STYLESHEETS
 import './app.styl';
 import '../../node_modules/angular-material/angular-material.min.css'
@@ -60,8 +63,8 @@ angular.module('nixApp', [
     ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable, //==>EXTERNAL MODUELES
     bifrost, pop, dialog, hummer, select, timer,imagenix, //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
-    adminTicket,documTicket,adminCliente,adminUsuario, configActivo,// ==> COMPONENTS
-    featuresList,activoList // ==> DIRECTIVES
+    adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,// ==> COMPONENTS
+    featuresList,activoList,nixText,nixSelect // ==> DIRECTIVES
   ])
   .config(routeConfig)
   .run(runConfig);
