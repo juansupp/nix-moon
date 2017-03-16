@@ -1,7 +1,7 @@
 'use strict';
 const angular = require('angular');
 
-let nixText = () => {
+function nixText(){
    return {
         template: require('./nix-text.pug'),
         restrict: 'EA',
@@ -9,8 +9,10 @@ let nixText = () => {
         scope : {
             ngModel : '=',
             label : '@',
-            required : '@',
-            name : '='
+            required : '=',
+            name : '=',
+            flex : '@',
+            frm : '='
         }
     };
 }

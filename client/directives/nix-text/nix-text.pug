@@ -1,9 +1,12 @@
 md-input-container.md-block(flex='{{flex}}')
-   label {{label}}
-   input(
-    type='text',
-    name='{{name}}',
-    ng-model='ngModel',
-    required='{{required}}')
+    label {{label}}
+    input(
+        type='text',
+        name='{{name}}',
+        ng-model='ngModel',
+        ng-required='{{required}}')
+    .errors(ng-messages="frm.$error")
+        div(ng-message='required') Campo requerido.
+
 
     //-md-maxlength='40',

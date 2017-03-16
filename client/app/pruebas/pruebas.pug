@@ -1,7 +1,24 @@
-form( name='pru' ng-submit='$ctrl.submit(pru)')
+form( name='$ctrl.pru' ng-submit='$ctrl.submit($ctrl.pru)')
     nix-text(
         required='true'
         label='Buenas'
         ng-model='$ctrl.some'
-        name='congas')
+        name='congas'
+        frm="$ctrl.pru.congas")
+    nix-select(
+        required='true'
+        name='cogos'
+        placeholder='Buncas'
+        ng-model='$ctrl.sme'
+        nx-data='$ctrl.nxData'
+        frm="$ctrl.pru.cogos"
+        )
+    nix-auto(
+        required='true'
+        name='usu'
+        label='Urcas'
+        ng-model='$ctrl.uru'
+        nx-data='$ctrl.nxData'
+        frm="$ctrl.pru.usu"
+    )
     button( type='submit') Fin

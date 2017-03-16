@@ -1,8 +1,15 @@
-md-select(
-    ng-model='ngModel'
-    placeholder='{{placeholder}}'
-    ng-change='ngChange')
-    md-option(
-        value='nxOption.value'
-        ng-repeat='nxOption in nxOptions'
+md-input-container.md-block(flex='{{flex}}')
+    label {{placeholder}}
+    md-select(
+        ng-required='{{required}}'
+        ng-model='ngModel'
+        ng-change='ngChange',
+        name='{{name}}')
+        md-option(
+            value='{{nxOption.value}}'
+            ng-repeat='nxOption in nxOptions'
         ) {{nxOption.display}}
+    .errors(ng-messages="frm.$error")
+        div(ng-message='required') Campo requerido.
+
+

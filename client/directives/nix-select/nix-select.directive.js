@@ -2,13 +2,26 @@
 const angular = require('angular');
 
 
-function nixSelect () {
+function nixSelect ($bi) {
     function link (scope,element,attrs) {
-
-
-        scope.nxOptions = new Array();
-
-
+        let
+            data = scope.nxData,
+            where =  data.w ? data.w :  {1:'1'}
+        $bi
+            .base(data.t)
+            .find(data.v,where)
+            .then(response => {
+                let items = new Array();
+                response
+                    .data
+                    .forEach(base =>
+                        items.push({
+                            value : base[data.v[0]],
+                            display :  base[data.v[1]]
+                        })
+                    );
+                scope.nxOptions = items;
+            });
     }
 
     return {
@@ -19,7 +32,10 @@ function nixSelect () {
         ngModel : '=',
         ngChange : '&',
         placeholder : '@',
-        nxData : '@'
+        nxData : '=',
+        required : '@',
+        name : '=',
+        frm : '='
       },
       link : link
     };

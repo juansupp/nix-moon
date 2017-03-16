@@ -10,6 +10,7 @@ export class PruebasComponent {
   constructor() {
     this.message = 'Hello';
     this.some = '';
+    this.sme = '';
   }
 
   submit (frm) {
@@ -17,7 +18,11 @@ export class PruebasComponent {
     console.log(frm,this.some);
   }
   $onInit() {
-
+    this.pru = new Object();
+    this.nxData = {
+      t :  'usuario',
+      v : ['id_usuario','correo']
+    }
   }
 }
 

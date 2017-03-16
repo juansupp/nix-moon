@@ -50,7 +50,8 @@ import pruebas from './pruebas/pruebas.component'
 import featuresList from '../directives/featuresList/featuresList.directive';
 import activoList from '../directives/activoList/activoList.directive';
 import nixText from '../directives/nix-text/nix-text.directive';
-import nixSelect from '../directives/nix-select/nix-select.directive'
+import nixSelect from '../directives/nix-select/nix-select.directive';
+import nixAuto from '../directives/nix-auto/nix-auto.directive';
 //STYLESHEETS
 import './app.styl';
 import '../../node_modules/angular-material/angular-material.min.css'
@@ -64,7 +65,7 @@ angular.module('nixApp', [
     bifrost, pop, dialog, hummer, select, timer,imagenix, //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
     adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,// ==> COMPONENTS
-    featuresList,activoList,nixText,nixSelect // ==> DIRECTIVES
+    featuresList,activoList,nixText,nixSelect,nixAuto // ==> DIRECTIVES
   ])
   .config(routeConfig)
   .run(runConfig);

@@ -72,6 +72,11 @@ export function bifrostService($http, $hummer) {
 
 
   /*PUBLIC FUNCTIONS */
+  function base (_entity) {
+    entity = _entity;
+    return methods;
+  }
+
   function especificacion (_entity ='especificacion'){
     entity = _entity;
     return methods;
@@ -141,7 +146,7 @@ export function bifrostService($http, $hummer) {
     return methods;
   }
 
-
+  this.base =  base;
   this.carActivo = carActivo;
   this.carValor = carValor;
   this.car = car;
