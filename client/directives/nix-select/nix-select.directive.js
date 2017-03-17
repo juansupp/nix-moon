@@ -31,7 +31,7 @@ function nixSelect ($bi) {
       scope : {
         ngModel : '=',
         ngChange : '&',
-        placeholder : '@',
+        label : '@',
         nxData : '=',
         required : '@',
         name : '=',

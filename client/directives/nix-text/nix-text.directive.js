@@ -2,6 +2,9 @@
 const angular = require('angular');
 
 function nixText(){
+    function link (scope,attrs) {
+        if(!scope.type) scope.type = 'text';
+    }
    return {
         template: require('./nix-text.pug'),
         restrict: 'EA',
@@ -11,9 +14,10 @@ function nixText(){
             label : '@',
             required : '=',
             name : '=',
-            flex : '@',
-            frm : '='
-        }
+            frm : '=',
+            type : '@'
+        },
+        link : link
     };
 }
 

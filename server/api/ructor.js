@@ -14,8 +14,9 @@ export default class ructor {
     let config = {
       user: 'sa',
       password: 'A*96NIXZ1996',
-      server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
-      database: 'mastodonx', // IVORY PRODUCTION
+      //server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
+      database: 'mastodonx',
+      server : "170.117.20.7",
       port: 1433
     }
 

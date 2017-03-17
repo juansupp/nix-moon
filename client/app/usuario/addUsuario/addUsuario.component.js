@@ -13,9 +13,6 @@ export class AddUsuarioComponent {
     this.$pop = $pop;
     this.$state = $state;
   }
-  search(query) {
-    return this.$select.search(query);
-  }
   nuevoUsuario(frm) {
     this.btnDisabled = true;
     let model = this.$hummer.castFormToModel(frm);
@@ -28,6 +25,7 @@ export class AddUsuarioComponent {
         model.contrasena,
         model.rol
       ];
+      console.log(arrVal)
       //??
       this.$bi.usuario().insert(arrVal)
         .then(() =>{
@@ -40,11 +38,11 @@ export class AddUsuarioComponent {
     }
   }
   $onInit() {
+    this.nxData = {
+      t :  'rol',
+      v : ['id_rol','nombre_rol']
+    }
     this.btnDisabled = false;
-    this.$bi.usuario().find(['distinct rol'])
-      .then(response =>
-        this.$select.list = this.$hummer.objectToArray(response.data)
-      );
   }
 }
 export default angular.module('nixApp.addUsuario', [uiRouter])

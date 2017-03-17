@@ -1,22 +1,48 @@
 
 'use strict';
 const nodemailer = require('nodemailer');
+const _  = require("lodash");
+
+let 
+    configMail = {
+      host: "smtp.gmail.com", // hostname
+      secureConnection: false, // TLS requires secureConnection to be false
+      port: 587, // port for secure SMTP 587
+      auth: {
+        user: "nix@suppliesdc.com",
+        pass: "Supp1145"
+      },
+      tls: {
+        ciphers: 'SSLv3'
+      }
+    },
+    transport = nodemailer.createTransport(configMail);
 
 
 export function index(req, res) {
-  res.json([]);
+  // setup e-mail data with unicode symbols
+  let 
+    b = req.body,
+    mailOptions = {
+        from: 'Supplies de Colombia ✔ NIX <nix@suppliesdc.com>', // sender address
+        to: b.to, // list of receivers
+        subject: b.subject, // Subject line
+        text: '✔', // plaintext body
+        html: b.body // html body
+    };
+  // send mail with defined transport object
+  transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.dir(error);
+      res.send('nop');
+    } else {
+      console.dir('Message sent: ' + info.response);
+      res.send('ok');
+    }
+  });
 }
 
-//BOOMER
-// create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'gmail.user@gmail.com',
-        pass: 'yourpass'
-    }
-});
-
+/*
 // setup email data with unicode symbols
 let mailOptions = {
     from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
@@ -33,3 +59,4 @@ transporter.sendMail(mailOptions, (error, info) => {
     }
     console.log('Message %s sent: %s', info.messageId, info.response);
 });
+*/

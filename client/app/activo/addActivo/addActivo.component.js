@@ -14,18 +14,18 @@ export class AddActivoComponent {
   }
 
   //Autocomplete inputs
-  searchCliente(query) {
+ /* searchCliente(query) {
     console.log(this.clientesList)
     return this.$select.searchFull(query, this.clientesList, 'nombre');
   }
   searchArea(query) {
     return this.$select.searchFull(query, this.areaList, 'nombre');
-  }
+  }*/
   searchMarca(query) {
     console.log(this.marcaList)
     return this.$select.search(query, this.marcaList);
   }
-
+/*
   selectedCliente(selected) {
     if(selected) {
       this.areaDisabled = false;
@@ -43,7 +43,7 @@ export class AddActivoComponent {
   selectedArea(selected) {
     if (selected) this.model.area = selected;
   }
-
+*/
   loadCaracteristicas(idTipo) {
     return this.$bi
       .car()
@@ -121,7 +121,7 @@ create table caracteristica_activo (
       .insert(arrVal)
   }
 
-  insertArea(){
+  /*insertArea(){
     console.log(this.model.cliente)
     return this.$bi.area()
       .insert(
@@ -129,7 +129,7 @@ create table caracteristica_activo (
           this.areaSearch,
           this.model.cliente.id_cliente
         ]);
-  }
+  }*/
 
   nuevoActivo(frm) {
     if(this.validateCarValues()){
@@ -169,7 +169,7 @@ create table caracteristica_activo (
       model.inventario,
       model.seguridad,
       this.model.tipoActivo,
-      this.model.area.id_area
+      'null'
     ];
     this.$bi
       .activo()

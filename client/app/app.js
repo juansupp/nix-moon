@@ -45,6 +45,7 @@ import documTicket from './ticket/documTicket/documTicket.component';
 import adminCliente from './cliente/adminCliente/adminCliente.component';
 import adminUsuario from './usuario/adminUsuario/adminUsuario.component';
 import configActivo from './activo/configActivo/configActivo.component';
+import ligarActivo from './activo/ligarActivo/ligarActivo.component';
 import pruebas from './pruebas/pruebas.component'
 //Directives
 import featuresList from '../directives/featuresList/featuresList.directive';
@@ -61,11 +62,16 @@ import '../../node_modules/angular-material-data-table/dist/md-data-table.min.cs
 
 angular.module('nixApp', [
     ngCookies, ngResource, ngSanitize, uiRouter, constants, util, ngMaterial,
-    ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable, //==>EXTERNAL MODUELES
-    bifrost, pop, dialog, hummer, select, timer,imagenix, //==> SERVICES
+    ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable, 
+    //==>EXTERNAL MODUELES
+    bifrost, pop, dialog, hummer, select, timer,imagenix, 
+    //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
-    adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,// ==> COMPONENTS
-    featuresList,activoList,nixText,nixSelect,nixAuto // ==> DIRECTIVES
+    adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,
+    ligarActivo,
+    // ==> COMPONENTS
+    featuresList,activoList,nixText,nixSelect,nixAuto 
+    // ==> DIRECTIVES
   ])
   .config(routeConfig)
   .run(runConfig);

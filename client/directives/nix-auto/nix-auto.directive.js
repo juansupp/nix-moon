@@ -27,14 +27,12 @@ function nixAuto($bi,$select){
                     );
                 scope.list = items;
             });
-
     }
 
     return {
       template: require('./nix-auto.pug'),
       restrict: 'EA',
       scope : {
-        flex : '@',
         ngModel : '=',
         label : '@',
         nxData : '=',
@@ -47,18 +45,12 @@ function nixAuto($bi,$select){
     };
 }
 
-
-
-
 export default angular.module('nixMoonApp.nix-auto', [])
   .directive('nixAuto', nixAuto)
   .name;
 
 
 /*
-
-
-
 searchArea(query) {
     return this.$select.searchFull(query, this.areaList, 'nombre');
   }

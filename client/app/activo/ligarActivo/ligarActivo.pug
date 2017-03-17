@@ -1,0 +1,45 @@
+div(layout='row', layout-align='center center')
+  md-content(layout-padding flex)
+    md-card-title
+      md-card-title-text
+        span.md-headline Ligar activos
+        p.md-body-1
+          | Selecciona un activo de la lista de activos pendientes por ligar.
+    md-content(layout='row')
+        md-table-container(flex)
+            table(md-table='', md-row-select='', multiple='false', ng-model='$ctrl.selected')
+              thead(md-head='',)
+                tr(md-row='')
+                  th(md-column='', md-numeric='') Usuario
+                  th(md-column='', md-numeric='') Correo
+                  th(md-column='', md-numeric='') Rol
+                  th(md-column='', md-numeric='') Rol
+                  th(md-column='', md-numeric='') Rol
+                  th(md-column='', md-numeric='') Rol
+              tbody(md-body='')
+                tr(md-row='', md-select='usuario', md-select-id='usuario.id_usuario', md-auto-select='', dir-paginate='usuario in $ctrl.usuarios | itemsPerPage: 2'  total-items='$ctrl.totalUsuarios' current-page="$ctrl.current")
+                  td(md-cell='') {{usuario.nombre + usuario.apellido}}
+                  td(md-cell='') {{usuario.correo}}
+                  td(md-cell='') {{usuario.correo}}
+                  td(md-cell='') {{usuario.correo}}
+                  td(md-cell='') {{usuario.correo}}
+                  td(md-cell='') {{usuario.correo}}
+            dir-pagination-controls(flex align='center' on-page-change="$ctrl.allUsers({'1':'1'},newPageNumber)")
+        span(flex='5')
+        md-card(flex='25')
+            md-card-content
+                form(name='userForm', ng-submit='$ctrl.updateUsuario(userForm)')
+                  div(layout='row' layout-gt-xs="column" )
+                    //-Cliente
+                    nix-select()
+                    //- Area 
+                    nix-auto()
+                    //-nombre contacto
+                    nix-auto()
+                    //-Correo
+                    nix-text()
+                    //- Extension 
+                    nix-text()
+                  md-button.md-primary(type='submit', ng-disabled='$ctrl.btnDisabled') Registrar
+
+
