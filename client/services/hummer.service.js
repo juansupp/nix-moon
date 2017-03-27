@@ -35,7 +35,12 @@ export function hummerService() {
     return sentence;
   }
   //
-  function returnQuotes(array) {
+  function returnQuotes(param) {
+    //--
+    if(param instanceof Object)
+      param = objectToArray(param)
+
+
     let sentence = '';
     for (var i = 0; i < array.length; i++) {
       if (!(array.length == i + 1))

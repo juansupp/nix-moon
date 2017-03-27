@@ -32,6 +32,7 @@ import hummer from '../services/hummer.service';
 import select from '../services/select.service';
 import timer from '../services/time.service';
 import imagenix from '../services/image.service';
+import nxData from '../services/nxData.service'
 //COMPONENTS ROUTERS
 import login from './login/login.component';
 import menu from './menu/menu.component';
@@ -64,7 +65,7 @@ angular.module('nixApp', [
     ngCookies, ngResource, ngSanitize, uiRouter, constants, util, ngMaterial,
     ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable, 
     //==>EXTERNAL MODUELES
-    bifrost, pop, dialog, hummer, select, timer,imagenix, 
+    bifrost, pop, dialog, hummer, select, timer, nxData, imagenix, 
     //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
     adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,

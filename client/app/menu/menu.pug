@@ -5,7 +5,7 @@ section.mort(layout='column')
       div(layout='row', flex='')
         md-menu-bar
           md-menu(ng-repeat='menu in $ctrl.structMenu')
-            button(ng-click='$mdOpenMenu()')  {{menu.title}}
+            button(ng-click='$mdMenu.open()')  {{menu.title}}
             md-menu-content
               md-menu-item.md-indent(ng-repeat='itemMenu in menu.items')
                 md-icon(md-font-library='material-icons') {{itemMenu.icon}}

@@ -6,12 +6,13 @@ import routes from './addUsuario.routes';
 
 export class AddUsuarioComponent {
   /*@ngInject*/
-  constructor($select, $bi, $hummer, $pop, $state) {
+  constructor($select, $bi, $hummer, $pop, $state,$nxData) {
     this.$bi = $bi;
     this.$select = $select;
     this.$hummer = $hummer;
     this.$pop = $pop;
     this.$state = $state;
+    this.nxData = $nxData;
   }
   nuevoUsuario(frm) {
     this.btnDisabled = true;
@@ -24,9 +25,7 @@ export class AddUsuarioComponent {
         model.correo,
         model.contrasena,
         model.rol
-      ];
-      console.log(arrVal)
-      //??
+      ];      
       this.$bi.usuario().insert(arrVal)
         .then(() =>{
           this.$pop.show('Usuario registrado satisfactoriamente.');
@@ -38,10 +37,6 @@ export class AddUsuarioComponent {
     }
   }
   $onInit() {
-    this.nxData = {
-      t :  'rol',
-      v : ['id_rol','nombre_rol']
-    }
     this.btnDisabled = false;
   }
 }

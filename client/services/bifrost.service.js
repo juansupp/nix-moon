@@ -59,9 +59,9 @@ export function bifrostService($http, $hummer) {
       });
   }
 
-  function insert(valArray) {
+  function insert(val) {
     let
-      _val = $hummer.returnQuotes(valArray);
+      _val = $hummer.returnQuotes(val);
     return $http.post(url, {
       val: _val,
       entity: entity
