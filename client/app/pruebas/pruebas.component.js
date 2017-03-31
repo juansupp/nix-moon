@@ -7,15 +7,25 @@ import routes from './pruebas.routes';
 
 export class PruebasComponent {
   /*@ngInject*/
-  constructor() {
+  constructor($bi) {
     this.message = 'Hello';
     this.some = '';
     this.sme = '';
+    this.$bi = $bi;
   }
 
   submit (frm) {
 
-    console.log(frm,this.some);
+    let ins = [
+      'GOnzalez',
+      'jjuan',
+      '319705244',
+      'eas@asd.com',
+      '123',
+      '1'
+    ]
+
+    this.$bi.usuario().insert(ins).then(response => console.log(response))
   }
   $onInit() {
     this.pru = new Object();

@@ -76,10 +76,10 @@ export default class ructor {
     return this.con(sentence,true);
   }
 
-  insert(entity, val) {
+  insert(entity, val,custom='') {
     let
-      sentence =
-      "insert into " + entity + " Output inserted.id_"+ entity +" values (" + val + ")"
+      sentence = `insert into ${entity} ${custom} Output inserted.id_${entity} values (${val}) `
+      //"insert into " + entity + " Output inserted.id_"+ entity +" values (" + val + ")"
     console.dir(sentence);
     return this.con(sentence, true);
   }

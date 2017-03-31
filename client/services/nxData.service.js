@@ -11,6 +11,10 @@ export function nxDataService() {
 		}
 	}
 	this.rol = constructNxData('rol','id_rol','_rol');
+	this.modelo = constructNxData('modelo','id_modelo','_modelo');
+	this.marca = constructNxData('marca','id_marca','_marca');
+	this.tipoActivo = constructNxData('tipo_activo','id_tipo_activo','_tipo_activo');
+	//this.tipoActivo = constructNxData('tipo_activo','id_tipo_activo','_tipo_activo');
 }
 
 

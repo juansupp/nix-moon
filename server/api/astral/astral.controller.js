@@ -19,9 +19,11 @@ export function find(req, res) {
 }
 
 export function insert(req, res) {
-  let val = req.body.val,
-    entity = req.body.entity;
-  Ructor.insert(entity,val).then(response => res.json(response.recordset));
+  let 
+    val = req.body.val,
+    entity = req.body.entity,
+    custom = req.body.custom ? req.body.custom : '' ;
+  Ructor.insert(entity,val,custom).then(response => res.json(response.recordset));
 }
 
 export function update (req,res){

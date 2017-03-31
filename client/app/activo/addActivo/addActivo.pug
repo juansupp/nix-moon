@@ -38,6 +38,7 @@ div(layout='row', layout-align='center center')
           ng-model='$ctrl.model.marca',
           nx-data='$ctrl.nxData.marca'
           frm='activoForm.marca'
+          ng-change='$ctrl.selectMarca()'
         )
         //- Modelo se carga por marca
         nix-auto(
@@ -60,7 +61,7 @@ div(layout='row', layout-align='center center')
         )
         //-Inventario
         nix-text(
-        flex
+          flex
           required='false',
           name='inventario'
           ng-model='$ctrl.model.inventario'
@@ -77,11 +78,13 @@ div(layout='row', layout-align='center center')
               | dolorem sequi quaerat voluptate quae.
         md-card-content(layout='row')
           div(flex ng-repeat='caracteristica in $ctrl.caracteristicas')
-            md-select( ng-model='caracteristica.selected' placeholder='{{caracteristica._caracteristica}}')
-              md-option(value='{{valor.id_caracteristica_valor}}' ng-repeat='valor in  caracteristica.values' ) {{valor._valor}}
-        md-button.md-primary.raised(
-          type='submit',
-          ng-disabled='$ctrl.btnDisabled') Registrar
+            md-card-content(layout='row')
+              div(flex ng-repeat='caracteristica in $ctrl.caracteristicas')
+                md-select( ng-model='caracteristica.selected' placeholder='{{caracteristica._caracteristica}}')
+                  md-option(value='{{valor.id_caracteristica_valor}}' ng-repeat='valor in  caracteristica.values' ) {{valor._valor}}
+          md-button.md-primary.raised(
+            type='submit',
+            ng-disabled='$ctrl.btnDisabled') Registrar
 
 
 

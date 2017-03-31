@@ -36,17 +36,12 @@ export function hummerService() {
   }
   //
   function returnQuotes(param) {
-    //--
-    if(param instanceof Object)
-      param = objectToArray(param)
-
-
     let sentence = '';
-    for (var i = 0; i < array.length; i++) {
-      if (!(array.length == i + 1))
-        sentence += " '" + array[i] + "',";
+    for (var i = 0; i < param.length; i++) {
+      if (!(param.length == i + 1))
+        sentence += " '" + param[i] + "',";
       else
-        sentence += " '" + array[i] + "'";
+        sentence += " '" + param[i] + "'";
       }
     return sentence;
   }

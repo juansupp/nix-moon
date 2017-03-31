@@ -59,11 +59,31 @@ export function bifrostService($http, $hummer) {
       });
   }
 
-  function insert(val) {
+  function insert(val,custom) {
+    //Si es una inserción personalizada
+    if(custom){
+      //Creacion de variables keys para custom y values para val
+      let 
+        _keys = new Array(),
+        _values = new Array();
+      //Recorre cada entidad del objecto y divide keys de values 
+      Object
+        .entries(val)
+        .forEach(([key,value])=> {
+          _keys.push(key);
+          _values.push(value);
+        });
+      //Remplaza la variable custom por su actual concatenación de string (forEach)
+      custom = `(${_keys.toString()})`
+      //remplaza la variable por su actual concatenación de string (forEach)
+      val = _values;      
+    }
+    
     let
       _val = $hummer.returnQuotes(val);
     return $http.post(url, {
       val: _val,
+      custom : custom,
       entity: entity
     });
   }

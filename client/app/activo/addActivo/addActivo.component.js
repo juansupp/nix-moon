@@ -5,45 +5,15 @@ import routes from './addActivo.routes';
 
 export class AddActivoComponent {
   /*@ngInject*/
-  constructor($select, $bi, $hummer, $pop,$q) {
+  constructor($select, $bi, $hummer, $pop,$q,$nxData) {
     this.$select = $select;
     this.$bi = $bi;
     this.$hummer = $hummer;
     this.$pop = $pop;
     this.$q = $q;
+    this.nxData = $nxData;
   }
 
-  //Autocomplete inputs
- /* searchCliente(query) {
-    console.log(this.clientesList)
-    return this.$select.searchFull(query, this.clientesList, 'nombre');
-  }
-  searchArea(query) {
-    return this.$select.searchFull(query, this.areaList, 'nombre');
-  }*/
-  searchMarca(query) {
-    console.log(this.marcaList)
-    return this.$select.search(query, this.marcaList);
-  }
-/*
-  selectedCliente(selected) {
-    if(selected) {
-      this.areaDisabled = false;
-      let
-        arrVal = ['distinct nombre', 'id_area'],
-        whereArr = {
-          fk_id_cliente: this.model.cliente.id_cliente
-        };
-      this.$bi.area().find(arrVal, whereArr)
-        .then(response => this.areaList = response.data);
-
-    }
-  }
-
-  selectedArea(selected) {
-    if (selected) this.model.area = selected;
-  }
-*/
   loadCaracteristicas(idTipo) {
     return this.$bi
       .car()
@@ -55,8 +25,6 @@ export class AddActivoComponent {
       .carValor()
       .all({fk_id_caracteristica : idCar});
   }
-
-
 
   selectTipoActivo(){
     //Por defecto se resetea la vista de las caracteristicas
@@ -99,14 +67,11 @@ export class AddActivoComponent {
       });
   }
 
+  selectMarca(){
+    console.log('as');
+    this.nxData.modelo.w = {fk_id_marca : this.model.marca};
+  } 
 
- /*
-create table caracteristica_activo (
-  id_caracteristica_activo int primary key identity,
-  fk_id_caracteristica_valor int foreign key references caracteristica_valor(id_caracteristica_valor),
-  fk_id_activo int foreign key references activo (id_activo)
-)
-*/
   validateCarValues(){
     let full = true;
     this.caracteristicas.forEach(c => {
@@ -121,41 +86,15 @@ create table caracteristica_activo (
       .insert(arrVal)
   }
 
-  /*insertArea(){
-    console.log(this.model.cliente)
-    return this.$bi.area()
-      .insert(
-        [
-          this.areaSearch,
-          this.model.cliente.id_cliente
-        ]);
-  }*/
-
+///*****//FOCUS******//***///
   nuevoActivo(frm) {
     if(this.validateCarValues()){
 
       this.btnDisabled = true;
 
       let
-        model = this.$hummer.castFormToModel(frm),
-        repetition = this.$hummer.evaluateRepetition(
-          this.areaList,
-          model.area,
-          'nombre'
-        );
-
-
-        //En caso que no se repita
-      if (!repetition) {
-        //Inserta area
-        this.insertArea()
-          .then(response => {
-            this.model.area = response.data[0];
-            this.ingresarActivo(model);
-          });
-      } else {
-        this.ingresarActivo(model);
-      }
+        model = this.$hummer.castFormToModel(frm);
+      this.ingresarActivo(model);
     }else {
       this.$pop.show('Debes seleccionar las especificaciones del activo');
     }
@@ -189,7 +128,6 @@ create table caracteristica_activo (
       });
   }
 
-
   $onInit() {
     //Se instancia el repetidor de caracteristicas
     this.caracteristicas = new Array();
@@ -197,23 +135,8 @@ create table caracteristica_activo (
     this.showCar = false;
     //Modelo del controlador
     this.model  = new Object();
-    //Carga el select para tipo de activo
-    this.$bi.tipoActivo().all()
-      .then(response => this.tipoActivoList = response.data);
-    //Carga el select para cliente desde una vista
-    this.$bi.cliente('cliente_completo').all()
-      .then(response => this.clientesList = response.data);
-    //Carga el select para la marca
-    this.$bi.activo().find(['distinct marca'])
-      .then(response => this.marcaList = this.$hummer.objectToArray(response.data));
     //Se activa el botón de submit por defecto
     this.btnDisabled = false;
-    //Se instancia el select para Area
-    this.areaList = new Array();
-    //Se desactiva por defecto el area para cargarlo con cliente
-    this.areaDisabled = true;
-    //Objeto de area seleccionada
-    this.areaSeleccionada = new Object();
   }
 }
 export default angular.module('nixApp.addActivo', [uiRouter])

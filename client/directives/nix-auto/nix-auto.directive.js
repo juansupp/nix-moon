@@ -4,15 +4,22 @@ const angular = require('angular');
 function nixAuto($bi,$select){
 
     function link (scope){
+        loadData();
         scope.list = new Array();
         scope.searchFn = query => {
             return $select.searchFull(query, scope.list, 'display');
         };
 
-        let
+        scope.$watch('nxData', data =>{
+          if(data)
+            loadData();
+        },() => {});
+
+        function loadData() {
+          let
             data = scope.nxData,
             where =  data.w ? data.w :  {1:'1'}
-        $bi
+          $bi
             .base(data.t)
             .find(data.v,where)
             .then(response => {
@@ -26,7 +33,8 @@ function nixAuto($bi,$select){
                         })
                     );
                 scope.list = items;
-            });
+            });  
+        }
     }
 
     return {
