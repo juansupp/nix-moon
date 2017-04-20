@@ -3,21 +3,23 @@ md-card
   //-md-toolbar.md-table-toolbar.md-default.md-toolbar-tools
     span Activos
   md-card-title
-      md-card-title-text
-        span.md-headline Lista de activos
-        p.md-body-1
-          | Selecciona el activo que corresponda al ticket. En la parte inferior se encuentran los filtros correspondientes.
+    md-card-title-text
+      span.md-headline Lista de activos
+      br
+      md-checkbox(ng-model='bodega' aria-label='Bodega' ng-change='bodegaChange()') Bodega
 
   md-table-container
     table(md-table='', md-row-select='', multiple='false', ng-model='selected')
       thead(md-head='',)
         tr(md-row='')
           th(md-column='', md-numeric='') Activo
+          th(md-column='', md-numeric='') Usuario
           th(md-column='', md-numeric='') Serial
           th(md-column='', md-numeric='') Inventario
       tbody(md-body='')
         tr(md-row='', md-select='activo', md-select-id='activo.id_activo', md-auto-select='', ng-repeat='activo in activos')
-          td(md-cell='') {{activo.tipo_activo}}
+          td(md-cell='') {{activo._tipo_activo}}
+          td(md-cell='') {{activo._contacto}}
           td(md-cell='') {{activo.serial}}
           td(md-cell='') {{activo.inventario}}
   //-FILTROS
@@ -32,9 +34,9 @@ md-card
           name='contacto'
         )
       //-CLIENTE
-      md-input-container.md-block(flex)
+      md-input-container.md-block(flex )
           label Cliente
-          md-select(ng-model='model.cliente' ng-change='selectedCliente()')
+          md-select(ng-disabled='bodega' ng-model='model.cliente' ng-change='selectedCliente()')
             md-option(
               ng-repeat='cliente in clientesList'
               ng-value='cliente.id_cliente'

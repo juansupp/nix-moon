@@ -23,6 +23,6 @@ function nixText(){
 
 
 
-export default angular.module('nixMoonApp.nix-text', [])
+export default angular.module('nixApp.nix-text', [])
   .directive('nixText', nixText)
   .name;

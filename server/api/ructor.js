@@ -13,11 +13,11 @@ export default class ructor {
 
     let config = {
       user: 'sa',
-      password: 'A*96NIXZ1996',
-      //server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
+      password: 'A*96NIXZJS1996',
+      //server : "186.29.68.122",
+      server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
       database: 'mastodonx',
-      server : "170.117.20.7",
-      port: 1433
+      //server : "170.117.20.7",
     }
 
 
@@ -35,17 +35,18 @@ export default class ructor {
 
     return new Promise(function(resolve, reject) {
       let connection = new sql.Connection(config, err => {
+        console.dir("error : "  + err)
 
-        if (err) return;
-          let request = new sql.Request(connection);
-          request.query(sentence, (_err, recordset) => {
-            console.log(_err)
-            connection.close();
-            if (open)
-              err ? reject({err: err}) : resolve({recordset: recordset});
-            else
-              err ? reject(err) : resolve(err);
-          });
+        //if (err) return err;
+        let request = new sql.Request(connection);
+        request.query(sentence, (_err, recordset) => {
+          console.log(_err)
+          connection.close();
+          if (open)
+            err ? reject({err: err}) : resolve({recordset: recordset});
+          else
+            err ? reject(err) : resolve(err);
+        });
 
 
       });

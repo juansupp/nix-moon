@@ -35,13 +35,14 @@ function nixSelect ($bi) {
         nxData : '=',
         required : '@',
         name : '=',
-        frm : '='
+        frm : '=',
+        mdNoUnderline :'@'
       },
       link : link
     };
 }
 
 
-export default angular.module('nixMoonApp.nix-select', [])
+export default angular.module('nixApp.nix-select', [])
   .directive('nixSelect', nixSelect)
   .name;

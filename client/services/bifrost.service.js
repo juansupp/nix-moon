@@ -63,10 +63,10 @@ export function bifrostService($http, $hummer) {
     //Si es una inserción personalizada
     if(custom){
       //Creacion de variables keys para custom y values para val
-      let 
+      let
         _keys = new Array(),
         _values = new Array();
-      //Recorre cada entidad del objecto y divide keys de values 
+      //Recorre cada entidad del objecto y divide keys de values
       Object
         .entries(val)
         .forEach(([key,value])=> {
@@ -76,9 +76,9 @@ export function bifrostService($http, $hummer) {
       //Remplaza la variable custom por su actual concatenación de string (forEach)
       custom = `(${_keys.toString()})`
       //remplaza la variable por su actual concatenación de string (forEach)
-      val = _values;      
+      val = _values;
     }
-    
+
     let
       _val = $hummer.returnQuotes(val);
     return $http.post(url, {
@@ -166,6 +166,21 @@ export function bifrostService($http, $hummer) {
     return methods;
   }
 
+  function modelo(_entity='modelo') {
+    entity = _entity
+    return methods;
+  }
+
+  function marca(_entity='marca'){
+    entity =_entity;
+    return methods;
+  }
+
+  function servicio(_entity = 'servicio'){
+    entity = _entity;
+    return methods;
+  }
+
   this.base =  base;
   this.carActivo = carActivo;
   this.carValor = carValor;
@@ -181,6 +196,9 @@ export function bifrostService($http, $hummer) {
   this.usuario = usuario;
   this.cliente = cliente;
   this.activo = activo;
+  this.marca = marca;
+  this.modelo = modelo;
+  this.servicio = servicio;
 }
 
 export default angular.module('nixApp.bifrost', [])

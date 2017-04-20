@@ -16,7 +16,7 @@ div(layout='row' layout-align='center center')
           ng-change="$ctrl.allTickets($ctrl.model)")
           md-option(
             ng-value='tecnico.id_usuario'
-            ng-repeat='tecnico in $ctrl.tecnicos' ) {{tecnico.nombre}}
+            ng-repeat='tecnico in $ctrl.tecnicos' ) {{tecnico._usuario}}
         //-Clientes
         md-select.md-no-underline(
           ng-model='$ctrl.model.cliente'
@@ -31,8 +31,8 @@ div(layout='row' layout-align='center center')
           placeholder='Servicio'
           ng-change="$ctrl.allTickets($ctrl.model)")
           md-option(
-            ng-value='servicio'
-            ng-repeat='servicio in $ctrl.servicios') {{servicio}}
+            ng-value='servicio.id_servicio'
+            ng-repeat='servicio in $ctrl.servicios') {{servicio._servicio}}
         //-Estados
         md-select.md-no-underline(
           ng-model='$ctrl.model.estado'

@@ -8,7 +8,7 @@ import routes from './adminTicket.routes'
 
 export class AdminTicketComponent {
   /*@ngInject*/
-  constructor(/*moment,*/ $select, $bi, $hummer, $pop, $scope, $cookieStore, $time) {
+  constructor(/*moment,*/ $select, $bi, $hummer, $pop, $scope, $cookieStore, $time,$nxData) {
     this.$select = $select;
     this.$bi = $bi;
     this.$hummer = $hummer;
@@ -16,11 +16,12 @@ export class AdminTicketComponent {
     this.$scope = $scope;
     this.$cookieStore = $cookieStore;
     this.$time = $time;
+    this.nxData = $nxData;
     //this.moment = moment;
   }
 
   allTickets(filter,page) {
-    if (filter) 
+    if (filter)
       filter["tipo"] = 'II';
     this.currenTotal(filter);
     this.$bi.ticket('full_ticket')
@@ -35,12 +36,12 @@ export class AdminTicketComponent {
       });
       //this.tickets = _.sortBy(response.data, 'N_Ticket').reverse();
       this.tickets = response.data;
-      //count the files 
+      //count the files
     });
   }
 
   filterDates(second) {
-    //reset page ? 
+    //reset page ?
     let fecha = new Array();
     if (!second) {
       fecha[0] = this.$time.date(this.fecha[0]) //this.moment(this.fecha[0]).format(sqlFormat);
@@ -67,15 +68,14 @@ export class AdminTicketComponent {
     //Modelo
     this.model = new Object();
     //Tecnicos
-    this.$bi.usuario('tecnicos')
-      .all()
+    this.$bi.usuario('full_usuario').all({_rol:'Tech'})
       .then(response => this.tecnicos = response.data);
     //SERVICIOS
-    this.$bi.ticket()
-      .find(['distinct servicio'])
-      .then(response => this.servicios = this.$hummer.objectToArray(response.data));
+    this.$bi.servicio().all()
+      .then(response => this.servicios = response.data);
     //CLIENTES
-    this.$bi.cliente('cliente_completo').all().then(response => this.clientes = response.data);
+    this.$bi.cliente('full_cliente').all()
+      .then(response => this.clientes = response.data);
 
     //Estados
     this.estados = [

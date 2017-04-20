@@ -2,7 +2,7 @@
 
 describe('Directive: nixSelect', function() {
   // load the directive's module and view
-  beforeEach(module('nixMoonApp.nix-select'));
+  beforeEach(module('nixApp.nix-select'));
   beforeEach(module('directives/nix-select/nix-select.html'));
 
   var element, scope;

@@ -1,9 +1,10 @@
 md-input-container.md-block(flex='{{flex}}')
     label {{label}}
     md-select(
+        ng-class="mdNoUnderline ? 'mdNoUnderline' : 'na' "
         ng-required='{{required}}'
         ng-model='ngModel'
-        ng-change='ngChange',
+        ng-change='ngChange()',
         name='{{name}}')
         md-option(
             value='{{nxOption.value}}'

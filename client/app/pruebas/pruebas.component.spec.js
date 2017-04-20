@@ -2,7 +2,7 @@
 
 describe('Component: PruebasComponent', function() {
   // load the controller's module
-  beforeEach(module('nixMoonApp.pruebas'));
+  beforeEach(module('nixApp.pruebas'));
 
   var PruebasComponent;
 

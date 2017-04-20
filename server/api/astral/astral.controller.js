@@ -5,7 +5,10 @@ import ructor from '../ructor';
 let Ructor = new ructor;
 
 export function index(req, res) {
-  Ructor.all().then(response => res.json(response.recordset));
+  Ructor
+    .all()
+    .then(response => res.json(response.recordset))
+    .catch(err => console.log(err));
 }
 
 export function find(req, res) {
@@ -19,7 +22,7 @@ export function find(req, res) {
 }
 
 export function insert(req, res) {
-  let 
+  let
     val = req.body.val,
     entity = req.body.entity,
     custom = req.body.custom ? req.body.custom : '' ;

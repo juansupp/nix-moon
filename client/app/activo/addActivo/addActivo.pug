@@ -4,9 +4,9 @@ div(layout='row', layout-align='center center')
       md-card-title-text
         span.md-headline Nuevo activo
         p.md-body-1
-          | Al momento de registrar el activo unicamente registras los datos y caracteristicas, 
-          b es necesario ligar el activo a un cliente para trabajar adecuadamente con el, 
-          | por defecto el activo se registrará en bodega 
+          | Al momento de registrar el activo unicamente registras los datos y caracteristicas,
+          b es necesario ligar el activo a un cliente para trabajar adecuadamente con el,
+          | por defecto el activo se registrará en bodega
           | Una vez registrado te redireccionará a una nueva ventana para poder ligarlo.
     form(name='activoForm', ng-submit='$ctrl.nuevoActivo(activoForm)')
       //-Tipo de activo
@@ -29,7 +29,7 @@ div(layout='row', layout-align='center center')
         required='true'
         frm='activoForm.serial')
       div(layout='row')
-        //- Marca 
+        //- Marca
         nix-auto(
           flex
           required='true',
@@ -38,17 +38,20 @@ div(layout='row', layout-align='center center')
           ng-model='$ctrl.model.marca',
           nx-data='$ctrl.nxData.marca'
           frm='activoForm.marca'
-          ng-change='$ctrl.selectMarca()'
+          nx-change='$ctrl.selectMarca()'
+          nx-text='$ctrl.text.marca'
         )
-        //- Modelo se carga por marca
+        //- Modelo se carga por marca ng-disabled="$ctrl.disabled.modelo"
         nix-auto(
           flex
+
           required='true',
           name='modelo',
           label='Modelo',
           ng-model='$ctrl.model.modelo',
           nx-data='$ctrl.nxData.modelo'
           frm='activoForm.modelo'
+          nx-text='$ctrl.text.modelo'
         )
       div(layout='row')
         //-Seguridad
@@ -78,13 +81,11 @@ div(layout='row', layout-align='center center')
               | dolorem sequi quaerat voluptate quae.
         md-card-content(layout='row')
           div(flex ng-repeat='caracteristica in $ctrl.caracteristicas')
-            md-card-content(layout='row')
-              div(flex ng-repeat='caracteristica in $ctrl.caracteristicas')
-                md-select( ng-model='caracteristica.selected' placeholder='{{caracteristica._caracteristica}}')
-                  md-option(value='{{valor.id_caracteristica_valor}}' ng-repeat='valor in  caracteristica.values' ) {{valor._valor}}
-          md-button.md-primary.raised(
-            type='submit',
-            ng-disabled='$ctrl.btnDisabled') Registrar
+            md-select( ng-model='caracteristica.selected' placeholder='{{caracteristica._caracteristica}}')
+              md-option(value='{{valor.id_caracteristica_valor}}' ng-repeat='valor in  caracteristica.values' ) {{valor._valor}}
+      md-button.md-primary.raised(
+        type='submit',
+        ng-disabled='$ctrl.disabled.submit') Registrar
 
 
 

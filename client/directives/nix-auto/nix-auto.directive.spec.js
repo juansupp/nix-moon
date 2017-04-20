@@ -2,7 +2,7 @@
 
 describe('Directive: nixAuto', function() {
   // load the directive's module and view
-  beforeEach(module('nixMoonApp.nix-auto'));
+  beforeEach(module('nixApp.nix-auto'));
   beforeEach(module('directives/nix-auto/nix-auto.html'));
 
   var element, scope;

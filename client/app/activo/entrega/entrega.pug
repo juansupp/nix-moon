@@ -1,0 +1,16 @@
+div(layout='row', layout-align='center center')
+  md-content(flex='45' layout-padding='')
+    md-card-title
+      md-card-title-text
+        span.md-headline Registro de ordenes de entrega
+        p.md-body-1
+          | Al momento de registrar el activo unicamente registras los datos y caracteristicas,
+          b es necesario ligar el activo a un cliente para trabajar adecuadamente con el,
+          | por defecto el activo se registrará en bodega
+          | Una vez registrado te redireccionará a una nueva ventana para poder ligarlo.
+    form(name='entregaForm', ng-submit='$ctrl.nuevaEntrega(activoForm)')
+
+      md-button.md-primary.raised(
+        type='submit',
+        ng-disabled='$ctrl.disabled.submit') Registrar
+

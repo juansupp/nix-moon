@@ -11,7 +11,7 @@ let activoList = ($bi,$time,$select) => {
     scope.areaDisabled = true;
     //Variable para guardar el activo seleccionado
     scope.selected = new Array();
-    //Variable para estructurar el filtro y guardar los modelos de autos y text 
+    //Variable para estructurar el filtro y guardar los modelos de autos y text
     scope.model = new Object();
     scope.filter = new Object();
     //Vigilante a selected para cambiar el modelo de raiz del controlador
@@ -22,22 +22,31 @@ let activoList = ($bi,$time,$select) => {
         if(buscar.length >= 2)
           allActivos(buscar);
     },() => {});
+    //
+    scope.bodegaChange = () => {
+      if(scope.bodega){
+        scope.filter["id_contacto"] = "1";
+        allActivos();
+      }
+      else
+        scope.filter = new Object(); // = > reset de los filtros
+    }
     //Servicio de busqueda para cliente
-    /*scope.searchCliente = query => 
+    /*scope.searchCliente = query =>
       $select.searchFull(query, scope.clientesList, 'nombre');
     //Servicio de busqueda para area
-    scope.searchArea = query => 
+    scope.searchArea = query =>
       $select.searchFull(query, scope.areaList, 'nombre');    */
     //Carga los clientes
     function loadClientes() {
-      $bi.cliente('cliente_completo').all()
+      $bi.cliente('full_cliente').all()
         .then(response => scope.clientesList = response.data);
     }
     //Carga todos los activos dependiendo el filtro
     function allActivos(busqueda) {
-      //Se instancia variable filter para poder usarla como where 
+      //Se instancia variable filter para poder usarla como where
       let filter = new Object();
-      //En caso que se haya realizado una busqueda 
+      //En caso que se haya realizado una busqueda
       if(busqueda){
         //Se crea variable que compartiran las columnas del object
         let  search = `'%${busqueda}%'`;
@@ -50,12 +59,12 @@ let activoList = ($bi,$time,$select) => {
       }
       //Se hace un merge del filter actual con el del modelo
       _.assign(filter,scope.filter)
-      
-      ////Finalmente se realiza la busqueda con el filtro 
+
+      ////Finalmente se realiza la busqueda con el filtro
       $bi.activo('full_activo').all(filter)
         .then(response=> scope.activos =response.data);
     }
-    //Evento de seleccion de cliente 
+    //Evento de seleccion de cliente
     scope.selectedCliente = () => {
       //Activa el select del area
       scope.areaDisabled = false;

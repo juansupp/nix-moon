@@ -7,11 +7,21 @@ import routes from './pruebas.routes';
 
 export class PruebasComponent {
   /*@ngInject*/
-  constructor($bi) {
+  constructor($bi,$nxData) {
     this.message = 'Hello';
     this.some = '';
     this.sme = '';
     this.$bi = $bi;
+    this.nxData =  $nxData;
+  }
+
+  change(){
+
+    console.log(this.model.marca)
+    /*this.nxData.modelo.w = {
+      fk_id_marca  : this.marca
+    };*/
+
   }
 
   submit (frm) {
@@ -28,15 +38,13 @@ export class PruebasComponent {
     this.$bi.usuario().insert(ins).then(response => console.log(response))
   }
   $onInit() {
+    this.model = new Object();
     this.pru = new Object();
-    this.nxData = {
-      t :  'usuario',
-      v : ['id_usuario','correo']
-    }
+
   }
 }
 
-export default angular.module('nixMoonApp.pruebas', [uiRouter])
+export default angular.module('nixApp.pruebas', [uiRouter])
   .config(routes)
   .component('pruebas', {
     template: require('./pruebas.pug'),

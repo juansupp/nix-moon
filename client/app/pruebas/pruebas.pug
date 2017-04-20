@@ -1,24 +1,38 @@
 form( name='$ctrl.pru' ng-submit='$ctrl.submit($ctrl.pru)')
-    nix-text(
+    //-nix-text(
         required='true'
         label='Buenas'
         ng-model='$ctrl.some'
         name='congas'
         frm="$ctrl.pru.congas")
-    nix-select(
-        required='true'
-        name='cogos'
-        label='Buncas'
-        ng-model='$ctrl.sme'
-        nx-data='$ctrl.nxData'
-        frm="$ctrl.pru.cogos"
-        )
+        nix-select(
+            required='true'
+            name='cogos'
+            label='Buncas'
+            ng-model='$ctrl.sme'
+            nx-data='$ctrl.nxData'
+            frm="$ctrl.pru.cogos"
+            )
     nix-auto(
         required='true'
-        name='usu'
-        label='Urcas'
-        ng-model='$ctrl.uru'
-        nx-data='$ctrl.nxData'
-        frm="$ctrl.pru.usu"
+        name='marca'
+        label='Marca'
+        ng-model='$ctrl.model.marca'
+        nx-data='$ctrl.nxData.marca'
+        frm="$ctrl.pru.marca"
+        ng-change='$ctrl.change()'
     )
+
+    nix-auto(
+        required='true'
+        name='modelo'
+        label='Modelo'
+        ng-model='$ctrl.model.modelo'
+        nx-data='$ctrl.nxData.modelo'
+        frm="$ctrl.pru.modelo"
+    )
+
+    video(controls)
+        source(src='first.mp4')
+
     button( type='submit') Fin

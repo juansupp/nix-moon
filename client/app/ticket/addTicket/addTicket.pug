@@ -6,108 +6,31 @@ div(layout='row', layout-align='center center')
         p.md-body-1
           | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
     form(name='ticketForm', ng-submit='$ctrl.nuevoTicket($event,ticketForm)')
-      //-FECHA
-        md-input-container.md-block(flex)
-          label Atención
-          md-datepicker(
-            name='ticketForm.fecha'
-            ng-model='$ctrl.model.fecha'
-            md-hide-icons='calendar'
-          )
-          div(ng-messages='ticketForm.fecha.$error')
-            div(ng-message='valid') Debes ingresar una fecha valida
-            div(ng-message='required') Campo requerido
-      //-Origen
-      md-autocomplete(
-        flex
-        required
-        md-min-length='0'
-        md-input-name='origen',
-        md-search-text='$ctrl.origenSearch'
-        md-items ='item in $ctrl.searchOrigen($ctrl.origenSearch)'
-        md-item-text='item'
-        md-selected-item='$cltr.item'
-        md-floating-label='Origen')
-        md-item-template
-          span(md-highlight-text='$ctrl.origenSearch') {{item}}
-        div(ng-messages='ticketForm.origen.$error')
-          div(ng-message='required') Campo requerido
-      //-Usuario Final
-      md-input-container.md-block(flex)
-        label Usuario final
-        input(
-          type='text'
-          ng-model='$ctrl.model.contacto'
-          name='contacto'
-          required
-        )
-        div(ng-messages='ticketForm.contacto.$error')
-          div(ng-message='required') Campo requerido.
       //-Servicio
-      md-autocomplete(
-        flex
-        required
-        md-min-length='0'
-        md-input-name='servicio',
-        md-search-text='$ctrl.servicioSearch'
-        md-items ='item in $ctrl.searchServicio($ctrl.servicioSearch)'
-        md-item-text='item'
-        md-floating-label='Servicio')
-        md-item-template
-          span(md-highlight-text='$ctrl.servicioSearch') {{item}}
-        div(ng-messages='ticketForm.servicio.$error')
-          div(ng-message='required') Campo requerido
+      nix-auto(
+        required='true'
+        name='servicio'
+        label='Servicio'
+        ng-model='$ctrl.model.servicio'
+        nx-data='$ctrl.nxData.servicio'
+        frm="$ctrl.ticketForm.servicio"
+      )
       //- Descripcion
       md-input-container.md-block(flex)
         label Descripción
         textarea(name='descripcion' required ng-model ='$ctrl.model.descripcion')
         div(ng-messages='ticketForm.descripcion.$error')
           div(ng-message='required') Campo requerido.
-      //-Activo
-        div(layout='row')
-          md-autocomplete(
-            flex='80'
-            required
-            md-min-length='0'
-            md-input-name='activo',
-            md-search-text='$ctrl.activoSearch'
-            md-items ='item in $ctrl.searchActivo($ctrl.activoSearch)'
-            md-item-text='item.tipo_activo'
-            md-floating-label='Activo'
-            md-selected-item-change='$ctrl.selectedActivo(item)'
-            md-menu-class="autocomplete-custom-template")
-            md-item-template
-              span.item-title
-                md-icon(md-svg-icon='assets/images/ser.svg')
-                span {{item.tipo_activo}}
-              span.item-metadata
-                span.item-metastat
-                  strong Inv :
-                  |  {{item.inventario}}
-                br
-                span.item-metastat
-                  strong S/N :
-                  |  {{item.serial}}
-            div(ng-messages='ticketForm.origen.$error')
-              div(ng-message='required') Campo requerido
-          md-button.md-icon-button.md-primary( flex aria-label='Filtro')
-            md-tooltip Filtrar activos
-            i.material-icons filter_list
-          md-button.md-icon-button.md-primary( flex aria-label='Registrar')
-            md-tooltip Agregar activo
-            i.material-icons playlist_add
-
       //-Tecnico
       br
-      md-input-container.md-block(flex)
-        label Tecnico encargado
-        md-select(ng-model='$ctrl.model.tecnico' name='tecnico' required)
-          md-option(
-            ng-repeat='tecnico in $ctrl.tecnicoList'
-            ng-value='tecnico.id_usuario'
-          )  {{tecnico.nombre}}
-        div(ng-messages='ticketForm.tecnico.$error')
-          div(ng-message='required') Campo requerido.
+      nix-select(
+        required='true'
+        name='tecnico'
+        label='Tecnico'
+        ng-model='$ctrl.model.tecnico'
+        nx-data='$ctrl.nxData.tecnico'
+        frm="$ctrl.ticketForm.tecnico"
+      )
       br
       activo-list(  ng-model='$ctrl.activoSeleccionado')
       br
@@ -135,3 +58,111 @@ div(layout='row', layout-align='center center')
             span(md-highlight-text='$ctrl.areaSearch') {{item.nombre}}
           div(ng-messages='ticketForm.area.$error')
             div(ng-message='required') Debes seleccionar o registrar un area.
+
+
+
+//-OLD SHIT !!
+
+  div(layout='row', layout-align='center center')
+    md-content(layout-padding flex='50')
+      md-card-title
+        md-card-title-text
+          span.md-headline Nuevo ticket
+          p.md-body-1
+            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
+      form(name='ticketForm', ng-submit='$ctrl.nuevoTicket($event,ticketForm)')
+        //-FECHA
+          md-input-container.md-block(flex)
+            label Atención
+            md-datepicker(
+              name='ticketForm.fecha'
+              ng-model='$ctrl.model.fecha'
+              md-hide-icons='calendar'
+            )
+            div(ng-messages='ticketForm.fecha.$error')
+              div(ng-message='valid') Debes ingresar una fecha valida
+              div(ng-message='required') Campo requerido
+        //-Origen
+        md-autocomplete(
+          flex
+          required
+          md-min-length='0'
+          md-input-name='origen',
+          md-search-text='$ctrl.origenSearch'
+          md-items ='item in $ctrl.searchOrigen($ctrl.origenSearch)'
+          md-item-text='item'
+          md-selected-item='$cltr.item'
+          md-floating-label='Origen')
+          md-item-template
+            span(md-highlight-text='$ctrl.origenSearch') {{item}}
+          div(ng-messages='ticketForm.origen.$error')
+            div(ng-message='required') Campo requerido
+        //-Usuario Final
+        md-input-container.md-block(flex)
+          label Usuario final
+          input(
+            type='text'
+            ng-model='$ctrl.model.contacto'
+            name='contacto'
+            required
+          )
+          div(ng-messages='ticketForm.contacto.$error')
+            div(ng-message='required') Campo requerido.
+        //-Servicio
+        md-autocomplete(
+          flex
+          required
+          md-min-length='0'
+          md-input-name='servicio',
+          md-search-text='$ctrl.servicioSearch'
+          md-items ='item in $ctrl.searchServicio($ctrl.servicioSearch)'
+          md-item-text='item'
+          md-floating-label='Servicio')
+          md-item-template
+            span(md-highlight-text='$ctrl.servicioSearch') {{item}}
+          div(ng-messages='ticketForm.servicio.$error')
+            div(ng-message='required') Campo requerido
+        //- Descripcion
+        md-input-container.md-block(flex)
+          label Descripción
+          textarea(name='descripcion' required ng-model ='$ctrl.model.descripcion')
+          div(ng-messages='ticketForm.descripcion.$error')
+            div(ng-message='required') Campo requerido.
+        //-Tecnico
+        br
+        md-input-container.md-block(flex)
+          label Tecnico encargado
+          md-select(ng-model='$ctrl.model.tecnico' name='tecnico' required)
+            md-option(
+              ng-repeat='tecnico in $ctrl.tecnicoList'
+              ng-value='tecnico.id_usuario'
+            )  {{tecnico.nombre}}
+          div(ng-messages='ticketForm.tecnico.$error')
+            div(ng-message='required') Campo requerido.
+        br
+        activo-list(  ng-model='$ctrl.activoSeleccionado')
+        br
+        md-button.md-primary.md-raised(ngf-select='', ngf-max-size="1MB" ng-model='$ctrl.model.images' ngf-accept="'image/*'"  ngf-multiple='true') Adjuntar archivos
+        md-button.md-primary(type='submit', ng-disabled='$ctrl.btnDisabled') Registrar
+        //-div(layout='row')
+          //-Cliente
+          md-autocomplete(
+            required
+            flex
+            md-min-length='0'
+            md-input-name='cliente'
+            md-search-text='$ctrl.clienteSearch'
+            md-items='item in $ctrl.searchCliente($ctrl.clienteSearch)'
+            md-item-text='item.nombre'
+            md-floating-label='Cliente'
+            md-selected-item-change='$ctrl.selectedCliente(item)')
+            md-item-template
+              span(md-highlight-text='$ctrl.clienteSearch') {{item.nombre}}
+            div(ng-messages='ticketForm.cliente.$error')
+              div(ng-message='required') Debes seleccionar un cliente.
+          //-Area
+          md-autocomplete(ng-disabled='$ctrl.areaDisabled', required='', flex='', md-min-length='0', md-selected-item-change='$ctrl.selectedArea(item)', md-input-name='area', md-search-text='$ctrl.areaSearch', md-items='item in $ctrl.searchArea($ctrl.areaSearch)', md-item-text='item.nombre', md-floating-label='Area')
+            md-item-template
+              span(md-highlight-text='$ctrl.areaSearch') {{item.nombre}}
+            div(ng-messages='ticketForm.area.$error')
+              div(ng-message='required') Debes seleccionar o registrar un area.

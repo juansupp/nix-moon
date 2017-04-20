@@ -2,7 +2,7 @@
 
 describe('Directive: nixText', function() {
   // load the directive's module and view
-  beforeEach(module('nixMoonApp.nix-text'));
+  beforeEach(module('nixApp.nix-text'));
   beforeEach(module('directives/nix-text/nix-text.html'));
 
   var element, scope;

@@ -7,10 +7,11 @@ import route from './configActivo.route'
 
 export class configActivoComponent {
   /*@ngInject*/
-  constructor($bi,$q,$dialog) {
+  constructor($bi,$q,$dialog,$pop) {
     this.$bi = $bi;
     this.$q = $q;
     this.$dialog = $dialog;
+    this.$pop = $pop;
   }
 
   insertTipo(tipo,descripcion){

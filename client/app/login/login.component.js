@@ -20,7 +20,7 @@ export class LoginComponent {
       pass: this.model.pass
     }
     //Se hace la consulta a la base de datos
-    this.$bi.usuario().all(whereArray).then(response => {
+    this.$bi.usuario('full_usuario').all(whereArray).then(response => {
       //Se guarda el tamaño del data segun response
       let data = response.data
       //En caso que el tamaño del data sea mayor a uno
@@ -28,7 +28,7 @@ export class LoginComponent {
         this.$pop.show(`Credenciales incorrectas`)
       else {
         this.$cookieStore.put('user', data[0]);
-        this.$state.go(`m.master`)
+        this.$state.go(`m.${userData._rol}`)
         //this.$state.go(`m.${data[0].rol}`)
       }
 
@@ -38,7 +38,7 @@ export class LoginComponent {
   $onInit() {
     let userData = this.$cookieStore.get('user');
     if (userData)
-      this.$state.go(`m.${userData.rol}`)
+      this.$state.go(`m.${userData._rol}`)
     this.model = new Object();
   }
 }
