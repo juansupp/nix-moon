@@ -22,13 +22,14 @@ export class LoginComponent {
     //Se hace la consulta a la base de datos
     this.$bi.usuario('full_usuario').all(whereArray).then(response => {
       //Se guarda el tamaño del data segun response
-      let data = response.data
+      let data = response.data;
       //En caso que el tamaño del data sea mayor a uno
       if (!data.length)
         this.$pop.show(`Credenciales incorrectas`)
       else {
+        console.log(data);
         this.$cookieStore.put('user', data[0]);
-        this.$state.go(`m.${userData._rol}`)
+        this.$state.go(`m.${data[0]._rol}`)
         //this.$state.go(`m.${data[0].rol}`)
       }
 

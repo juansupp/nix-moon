@@ -1,33 +1,11 @@
-div(layout='column', layout-align='center center')
-	md-content(layout-padding flex)
-		md-card-title
-			md-card-title-text
-			span.md-headline Gestor de usuarios
-			p.md-body-1
-			| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ducimus quas alias iusto, voluptas esse, aspernatur nobis reprehenderit! Provident, error eaque veniam maxime optio in dolorem sequi quaerat voluptate quae.
-	md-content(layout='row')
-		
-		
-//-div(flex)http://plnkr.co/edit/OWwDCaYUjuN7fM5y5Btd?p=preview
-	ul(dnd-list='$ctrl.models.lists.A')
-		li(
-			ng-repeat='item in $ctrl.models.lists.A'
-			dnd-draggable='item'
-			dnd-moved="$ctrl.models.lists.A.splice($index, 1)"
-	        dnd-effect-allowed="move"
-	        dnd-selected="$ctrl.models.selected = item"
-	        ng-class="{'selected': $ctrl.models.selected === item}"
-			) {{item.label}}
-
-	div(flex)
-		ul(dnd-list='$ctrl.models.lists.B')
-			li(
-				ng-repeat='item in $ctrl.models.lists.B'
-				dnd-draggable='item'
-				dnd-moved="$ctrl.models.lists.B.splice($index, 1)"
-		        dnd-effect-allowed="move"
-		        dnd-selected="$ctrl.models.selected = item"
-		        ng-class="{'selected': $ctrl.models.selected === item}"
-				) {{item.label}}
-
-
+div(layout='row', layout-align='center center')
+  md-content(flex='45' layout-padding='')
+    md-card-title
+      md-card-title-text
+        span.md-headline Alistar activo
+        p.md-body-1
+          | Al momento de registrar el activo unicamente registras los datos y caracteristicas,
+          b es necesario ligar el activo a un cliente para trabajar adecuadamente con el,
+          | por defecto el activo se registrará en bodega
+          | Una vez registrado te redireccionará a una nueva ventana para poder ligarlo.
+  	md-card-content(flex)			

@@ -3,7 +3,7 @@
 export default function($stateProvider) {
   'ngInject';
   $stateProvider
-    .state('alistarActivo', {
+    .state('m.alistarActivo', {
       url: '/alistarActivo',
       template: '<alistar-activo></alistar-activo>'
     });

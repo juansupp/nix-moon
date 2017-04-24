@@ -23,8 +23,6 @@ export class AlistarActivoComponent {
         this.models.lists.B.push({label: "Item B" + i});
     }
 
-    
-
   }
 }
 

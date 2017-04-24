@@ -67,7 +67,7 @@ import '../../node_modules/angular-material-data-table/dist/md-data-table.min.cs
 angular.module('nixApp', [
     ngCookies, ngResource, ngSanitize, uiRouter, constants, util, ngMaterial,
     ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable,
-    dragAndDrop,
+    
     //==>EXTERNAL MODUELES
     bifrost, pop, dialog, hummer, select, timer, nxData, imagenix,
     //==> SERVICES

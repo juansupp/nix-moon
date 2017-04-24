@@ -13,11 +13,11 @@ export default class ructor {
 
     let config = {
       user: 'sa',
-      password: 'A*96NIXZJS1996',
+      password: 'A*96NIXZ1996',
       //server : "186.29.68.122",
-      server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
+      //server: "localhost\\SQLEXPRESS", // You can use 'localhost\\instance' to connect to named instance
       database: 'mastodonx',
-      //server : "170.117.20.7",
+      server : "170.117.20.7",
     }
 
 
