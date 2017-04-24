@@ -16,6 +16,7 @@ import es from 'moment/locale/es.js'
 import ngMoment from 'angular-moment';
 import ngPagination from 'angular-utils-pagination';
 import mdDataTable from 'angular-material-data-table';
+//import dragAndDrop from 'angular-drag-and-drop-lists'; ==> NO INTECTA 
 moment.locale('es');
 //TRASH
 import {
@@ -48,7 +49,8 @@ import adminUsuario from './usuario/adminUsuario/adminUsuario.component';
 import configActivo from './activo/configActivo/configActivo.component';
 import ligarActivo from './activo/ligarActivo/ligarActivo.component';
 import entrega from './activo/entrega/entrega.component';
-import pruebas from './pruebas/pruebas.component'
+import pruebas from './pruebas/pruebas.component';
+import alistarActivo from './activo/alistarActivo/alistarActivo.component'
 //Directives
 import featuresList from '../directives/featuresList/featuresList.directive';
 import activoList from '../directives/activoList/activoList.directive';
@@ -65,12 +67,13 @@ import '../../node_modules/angular-material-data-table/dist/md-data-table.min.cs
 angular.module('nixApp', [
     ngCookies, ngResource, ngSanitize, uiRouter, constants, util, ngMaterial,
     ngMessages, ngLoading, ngFileUpload, ngMoment,ngPagination,mdDataTable,
+    dragAndDrop,
     //==>EXTERNAL MODUELES
     bifrost, pop, dialog, hummer, select, timer, nxData, imagenix,
     //==> SERVICES
     login, menu, master, addUsuario, addCliente, addActivo, addTicket,
     adminTicket,documTicket,adminCliente,adminUsuario, configActivo,pruebas,
-    ligarActivo,entrega,
+    ligarActivo,entrega,alistarActivo,
     // ==> COMPONENTS
     featuresList,activoList,nixText,nixSelect,nixAuto
     // ==> DIRECTIVES
